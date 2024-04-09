@@ -1,0 +1,66 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.light-theme {
+    background-color: #fff;
+    color: #333;
+}
+
+.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-theme .sidebar {
+    background-color: #222; /* Darker background for sidebar in dark theme */
+    box-shadow: 0 0 10px rgba(14, 14, 14, 0.8); /* Lighter shadow for dark theme */
+}
+
+button {
+    outline: 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.logo h2 {
+    margin-bottom: 20px;
+}
+
+.nav-links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-links ul li {
+    margin-bottom: 10px;
+}
+
+.nav-links ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.theme-toggle {
+    position: absolute;
+    bottom: 100px;
+}
+
+.main-content {
+    margin-left: 320px;
+    padding: 20px;
+}
