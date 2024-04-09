@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model adminUser {
+  id          Int      @id @default(autoincrement())
+  username    String   @unique @db.VarChar(40)
+  password    String
+  first_name  String   @db.VarChar(60)
+  last_name   String   @db.VarChar(60)
+  created_at  DateTime @default(now())
+  modified_at DateTime @updatedAt
+
+  @@map(name: "adminUser")
+}
+
+model productCategory {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(250)
+  created_at  DateTime  @default(now())
+  modified_at DateTime  @updatedAt
+  isDeleted   Boolean   @default(false)
+  category    product[] @relation("CategoryList")
+
+  @@map(name: "productCategory")
+}
+
+model product {
+  id            Int      @id @default(autoincrement())
+  pid           String   @unique @default(uuid())
+  name          String
+  thumb_img     String
+  desc          String
+  quantity      Int
+  dicount_price Decimal
+  total_price   Decimal
+  created_at    DateTime @default(now())
+  modified_at   DateTime @updatedAt
+  isDeleted     Boolean  @default(false)
+
+  category   productCategory @relation("CategoryList", fields: [categoryId], references: [id])
+  categoryId Int
+
+  productImg productGallery[] @relation("productImg")
+
+  @@map(name: "product")
+}
+
+model productGallery {
+  id          Int      @id @default(autoincrement())
+  image       String?
+  created_at  DateTime @default(now())
+  modified_at DateTime @updatedAt
+
+  product   product @relation("productImg", fields: [productId], references: [id])
+  productId Int
+}
