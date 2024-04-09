@@ -46,6 +46,12 @@ async function adminLogin (req, res) {
     }
 }
 
+async function adminLogout (req, res) {  
+    res.clearCookie('adminToken');
+    return res.redirect('/admin/login');
+}
+
+
 async function dashboard (req, res, next) {
     const adminData = req.admin;
     const pk = adminData.adminId;
@@ -58,4 +64,9 @@ async function dashboard (req, res, next) {
 }
 
 
-module.exports = { loginPage, adminLogin, dashboard }
+module.exports = {
+    loginPage,
+    adminLogin, 
+    adminLogout, 
+    dashboard 
+}

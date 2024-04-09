@@ -5,9 +5,8 @@ const adminController = require('../controllers/adminController');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 
 router.get('/login', adminController.loginPage);
-
 router.post('/login', adminController.adminLogin);
-
+router.get('/logout', adminController.adminLogout);
 router.get('/dashboard', authenticateAdmin, adminController.dashboard);
 
 
