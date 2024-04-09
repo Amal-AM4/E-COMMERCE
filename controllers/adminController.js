@@ -35,7 +35,6 @@ async function adminLogin (req, res) {
         }
 
         const token = jwt.sign({ adminId: admin.id }, CODE, { expiresIn: '1h' });
-        console.log(`Token: ${token}`);
 
         res.cookie("adminToken", token, { httpOnly: true });
 
@@ -47,5 +46,16 @@ async function adminLogin (req, res) {
     }
 }
 
+async function dashboard (req, res, next) {
+    const adminData = req.admin;
+    const pk = adminData.adminId;
 
-module.exports = { loginPage, adminLogin }
+    const adminUser = await prisma.adminUser.findUnique({
+        where: { id:pk }
+    });
+
+    res.render('admin-panal/dashboard', { data: adminUser });
+}
+
+
+module.exports = { loginPage, adminLogin, dashboard }
