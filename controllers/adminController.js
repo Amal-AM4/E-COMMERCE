@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const prisma = new PrismaClient();
 
 require('dotenv').config();
-
 const CODE = process.env.JSON_KEY;
 
 async function loginPage (req, res) {
@@ -106,10 +105,14 @@ async function insertProductCategory (req, res) {
     }
 }
 
+async function addProduct (req, res) {
+    res.render('admin-panal/addProduct');
+}
+
 
 module.exports = {
-    loginPage,
-    adminLogin, 
-    adminLogout, 
-    dashboard, productCategoryEjs, insertProductCategory
+    loginPage, adminLogin, adminLogout, 
+    dashboard, 
+    productCategoryEjs, insertProductCategory,
+    addProduct
 }

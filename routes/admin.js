@@ -10,6 +10,7 @@ router.post('/logout', adminController.adminLogout);
 router.get('/dashboard', authenticateAdmin, adminController.dashboard);
 router.get('/productCategory',authenticateAdmin, adminController.productCategoryEjs);
 router.post('/productCategory', adminController.insertProductCategory);
+router.get('/addProduct', adminController.addProduct);
 
 
 module.exports = router;
