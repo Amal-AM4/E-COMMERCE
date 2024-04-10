@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+    <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
+
+    <style>
+        input {
+            padding: 10px 18px;
+            border-radius: 4px;
+            border: none;
+            outline: 0;
+        }
+        .table {
+            margin-top: 40px;
+        }
+        .table table {
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .table table tr, th, td {
+            padding: 10px 14px;
+            border: 1px solid #fff;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <% include sidebar.ejs %>
+
+    <div class="main-content">
+        <!-- Your data display content goes here -->
+        <h1>Insert new Category</h1>
+
+        <% if (messages.error) { %>
+            <div class="alert alert-danger">
+                <%= messages.error %>
+            </div>
+        <% } %>
+        
+        <% if (messages.success) { %>
+            <div class="alert alert-success">
+                <%= messages.success %>
+            </div>
+        <% } %>
+
+        <form action="/admin/productCategory" method="post">
+            <label for="">New Category:</label>
+            <input type="text" name="category" id="">
+            <button type="submit">Submit</button>
+        </form>
+
+        <div class="table">
+            <h4>Product Category Table</h4>
+            <table>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Name</th>
+                </tr>
+                <% let count = 1; %>
+                <% data.forEach(row => { %>
+                    <tr>
+                        <td><%= count %></td>
+                        <td><%= row.name %></td>
+                    </tr>
+                    <% count ++; %>
+                <% }) %>
+            </table>
+        </div>
+        
+    </div>
+
+    <script src="/javascripts/theme.js"></script>
+</body>
+</html>

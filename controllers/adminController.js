@@ -63,10 +63,53 @@ async function dashboard (req, res, next) {
     res.render('admin-panal/dashboard', { data: adminUser });
 }
 
+async function productCategoryEjs (req, res) {
+    try {
+        const productCat = await prisma.productCategory.findMany();
+        res.render('admin-panal/product_category', { data: productCat, messages: req.flash() });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function insertProductCategory (req, res) {  
+    try {
+        const pname = req.body.category;
+        if (pname === '') {
+            req.flash('error', 'Please entry something');
+            return res.redirect('/admin/productCategory');
+        }
+        
+        const newCat = await prisma.productCategory.findMany({
+            where: {
+                name: pname
+            }
+        });
+
+        if (newCat.length != 0) {
+            // category already exists
+            console.log('we are in if stmt');
+            req.flash('error', 'Category already exists');
+            res.redirect('/admin/productCategory');
+        } else {
+            console.log('we are in else stmt');
+            const newProCat = await prisma.productCategory.create({
+                data: {
+                    name: pname
+                }
+            });
+            req.flash('success', 'Category added successfully');
+            res.redirect('/admin/productCategory');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = {
     loginPage,
     adminLogin, 
     adminLogout, 
-    dashboard 
+    dashboard, productCategoryEjs, insertProductCategory
 }

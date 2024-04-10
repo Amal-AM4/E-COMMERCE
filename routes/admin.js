@@ -8,6 +8,8 @@ router.get('/login', adminController.loginPage);
 router.post('/login', adminController.adminLogin);
 router.post('/logout', adminController.adminLogout);
 router.get('/dashboard', authenticateAdmin, adminController.dashboard);
+router.get('/productCategory',authenticateAdmin, adminController.productCategoryEjs);
+router.post('/productCategory', adminController.insertProductCategory);
 
 
 module.exports = router;

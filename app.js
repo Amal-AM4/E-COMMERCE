@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session');
+const flash = require('express-flash');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +13,7 @@ const adminRouter = require('./routes/admin');
 
 require('dotenv').config();
 const PORT = process.env.PORT;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 var app = express();
 
@@ -23,6 +26,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
+app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
