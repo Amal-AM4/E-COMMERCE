@@ -15,7 +15,7 @@
         <h1>Insert New Product Data</h1>
 
         <!-- enctype="multipart/form-data" -->
-        <form action="/admin/addProduct" method="post">
+        <form action="/admin/addProduct" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="">Product Category</label>
                 <select name="category" id="">
@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label for="">Thumb Image</label>
-                <input type="file" name="thumb" id="">
+                <input type="file" name="thumb_img" id="">
             </div>
             <div class="form-group">
                 <label for="">Quantity</label>

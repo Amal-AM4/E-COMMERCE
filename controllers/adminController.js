@@ -1,10 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
-const upload = require("../config/multerConfig");
 const prisma = new PrismaClient();
+const path = require('path');
 
 require('dotenv').config();
 const CODE = process.env.JSON_KEY;
+
 
 async function loginPage (req, res) {
     res.render('admin-panal/login');
@@ -115,12 +116,6 @@ async function addProduct (req, res) {
     }
 }
 
-// async function addProductItem (req, res) {
-//     console.log('addproductitem through post method');
-//     console.log(req.body);
-// }
-
-
 async function addProductItem (req, res) {  
     try {
         const category = req.body.category;
@@ -130,19 +125,21 @@ async function addProductItem (req, res) {
         const discountPrice = req.body.discountPrice;
         const description = req.body.description;
 
-        const thumbPath = req.file && req.file.path; // Get the uploaded file path
+        const thumbPath = req.file ? req.file.path : null;
 
-        console.log(name);
+        // console.log(req.file);
+        console.log(req.file.path);
+        console.log(thumbPath);
 
         const newProduct = await prisma.product.create({
             data: {
-                categoryId: category,
+                categoryId: parseInt(category),
                 thumb_img: thumbPath,
-                quantity: qnty,
-                total_price: totalPrice,
-                discount_price: discountPrice,
+                quantity: parseInt(qnty),
+                total_price: parseFloat(totalPrice),
+                dicount_price: parseFloat(discountPrice),
                 desc: description,
-                name: name // Include the actual value for the name field
+                name: name 
             }
         });
 
