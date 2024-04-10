@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const jwt = require("jsonwebtoken");
+const upload = require("../config/multerConfig");
 const prisma = new PrismaClient();
 
 require('dotenv').config();
@@ -106,7 +107,51 @@ async function insertProductCategory (req, res) {
 }
 
 async function addProduct (req, res) {
-    res.render('admin-panal/addProduct');
+    try {
+        const category = await prisma.productCategory.findMany();
+        res.render('admin-panal/addProduct', {data: category});
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+// async function addProductItem (req, res) {
+//     console.log('addproductitem through post method');
+//     console.log(req.body);
+// }
+
+
+async function addProductItem (req, res) {  
+    try {
+        const category = req.body.category;
+        const name = req.body.name;
+        const qnty = req.body.qnty;
+        const totalPrice = req.body.totalPrice;
+        const discountPrice = req.body.discountPrice;
+        const description = req.body.description;
+
+        const thumbPath = req.file && req.file.path; // Get the uploaded file path
+
+        console.log(name);
+
+        const newProduct = await prisma.product.create({
+            data: {
+                categoryId: category,
+                thumb_img: thumbPath,
+                quantity: qnty,
+                total_price: totalPrice,
+                discount_price: discountPrice,
+                desc: description,
+                name: name // Include the actual value for the name field
+            }
+        });
+
+        // req.flash('success', 'Product added successfully');
+        res.redirect('/admin/addProduct');
+
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
@@ -114,5 +159,5 @@ module.exports = {
     loginPage, adminLogin, adminLogout, 
     dashboard, 
     productCategoryEjs, insertProductCategory,
-    addProduct
+    addProduct, addProductItem
 }
