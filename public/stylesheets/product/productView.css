@@ -1,0 +1,20 @@
+.thumb {
+    width: 240px;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.owl-carousel {
+    width: 900px;
+}
+
+.owl-carousel div img {
+    border-radius: 10px;
+    width: 200px !important;
+    height: auto;
+}
+
+.owl-carousel.owl-drag .owl-item {
+    width: 220px !important;
+}

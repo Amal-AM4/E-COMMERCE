@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
+
+    <link rel="stylesheet" href="/stylesheets/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/stylesheets/owlcarousel/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="/stylesheets/product/productView.css">
 </head>
 <body>
     <% include ../admin-panal/sidebar.ejs %>
@@ -14,16 +19,32 @@
         <h1>Product Item [<%= data.name %>]</h1>
         <p>Category: <%= data.category.name %></p>
         <h4>Display Picture</h4>
-        <img src="<%= data.thumb_img.replace('public', '') %>" alt="">
+        <img src="<%= data.thumb_img.replace('public', '') %>" alt="" class="thumb">
 
+        <div class="owl-carousel">
         <% dataImg.forEach(img => { %>
-            <img src="<%= img.image.replace('public', '') %>" alt="">
+            <div>
+                <img src="<%= img.image.replace('public', '') %>" alt="">
+            </div>
         <% }) %>
+        </div>
 
 
 
     </div>
 
     <script src="/javascripts/theme.js"></script>
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/owlcarousel/owl.carousel.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                loop: false,
+                autoWidth:false,
+            });
+        });
+    </script>
 </body>
 </html>
