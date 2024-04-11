@@ -1,6 +1,6 @@
 
-.link:link,
-.link:visited {
+a:link,
+a:visited {
     color: rgb(58, 137, 255);
     text-decoration: none;
 }

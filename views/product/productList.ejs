@@ -50,9 +50,9 @@
                         <td><%= col.quantity %></td>
                         <td><span>&#8377;</span> <%= col.total_price %></td>
                         <td><span>&#8377;</span> <%= col.dicount_price %></td>
-                        <td><a href="<%= col.pid %>" class="link">view</a></td>
-                        <td><a href="#" class="link">edit</a></td>
-                        <td><a href="#" class="link">remove</a></td>
+                        <td><a href="/admin/product/productView/<%= col.pid %>/<%= col.id %>">view</a></td>
+                        <td><a href="#">edit</a></td>
+                        <td><a href="#">remove</a></td>
                     </tr>
                     <% count ++; %>
                 <% }) %>

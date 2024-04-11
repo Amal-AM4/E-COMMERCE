@@ -15,7 +15,33 @@ async function productList (req, res) {
     }
 }
 
+async function productView (req, res) {
+    try {
+        const pid = req.params.pid;
+        const id = parseInt(req.params.id);
+
+        const productImg = await prisma.productGallery.findMany({
+            where: {
+                productId: id
+            }
+        });
+
+        const productView = await prisma.product.findUnique({
+            where: {
+                pid: pid
+            },
+            include: {
+                category: true,
+                // productImg: true
+            }
+        });
+        res.render('product/productView', { data: productView, dataImg: productImg });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = { 
-    productList
+    productList, productView
 }
