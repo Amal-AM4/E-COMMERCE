@@ -3,7 +3,12 @@ const prisma = new PrismaClient();
 
 
 async function productList (req, res) {
-    res.render('product/productList')
+    try {
+        const productData = await prisma.product.findMany();
+        res.render('product/productList', { data: productData });
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
+    <link rel="stylesheet" href="/stylesheets/product/productList.css">
 </head>
 <body>
     <% include ../admin-panal/sidebar.ejs %>
@@ -12,6 +13,37 @@
     <div class="main-content">
         <!-- Your data display content goes here -->
         <h1>Product Data List</h1>
+        
+        <div class="table">
+            <table>
+                <tr>
+                    <th>Sl. no</th>
+                    <th>Product Name</th>
+                    <th>Thumb IMG</th>
+                    <th>Qty</th>
+                    <th>Total Price</th>
+                    <th>Discount Price</th>
+                    <th>View</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <% let count=1; %>
+                <% data.forEach(col => { %>
+                    <tr>
+                        <td><%= count; %></td>
+                        <td><%= col.name %></td>
+                        <td><img src="<%= col.thumb_img.replace('public', '') %>" alt=""></td>
+                        <td><%= col.quantity %></td>
+                        <td><span>&#8377;</span> <%= col.total_price %></td>
+                        <td><span>&#8377;</span> <%= col.dicount_price %></td>
+                        <td><a href="#">view</a></td>
+                        <td><a href="#">edit</a></td>
+                        <td><a href="#">remove</a></td>
+                    </tr>
+                    <% count ++; %>
+                <% }) %>
+            </table>
+        </div>
     </div>
 
     <script src="/javascripts/theme.js"></script>

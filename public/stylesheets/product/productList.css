@@ -1,0 +1,23 @@
+
+a:link,
+a:visited {
+    color: aqua;
+    text-decoration: none;
+}
+
+.table table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    table-layout: auto;
+    text-align: center;
+}
+
+.table table tr, th, td {
+    padding: 10px 14px;
+    border: 2px solid #fff;
+}
+
+.table table tr td img {
+    width: 100px;
+    height: auto;
+}
