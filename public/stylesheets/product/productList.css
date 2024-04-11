@@ -1,6 +1,6 @@
 
-a:link,
-a:visited {
+.link:link,
+.link:visited {
     color: rgb(58, 137, 255);
     text-decoration: none;
 }
@@ -16,4 +16,23 @@ a:visited {
 .table-bx table tr td img {
     width: 100px;
     height: auto;
+}
+
+.table-bx table th,
+.table-bx table td {
+    vertical-align: middle;
+}
+
+.pagination {
+    color: #ececec;
+    display: flex;
+}
+
+.pagination li {
+    list-style-type: none;
+    padding: 10px 14px;
+}
+.pagination a {
+    text-decoration: none;
+    color: rgb(58, 137, 255);
 }
