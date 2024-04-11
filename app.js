@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const adminRouter = require('./routes/admin');
+const productRouter = require('./routes/product');
 
 require('dotenv').config();
 const PORT = process.env.PORT;
@@ -39,6 +40,7 @@ app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
+app.use('/admin/product', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
