@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product | </title>
+    <title>Product | <%= product.name %></title>
 
     <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
     <link rel="stylesheet" href="/stylesheets/product/productGallery.css">
@@ -14,13 +14,19 @@
     <div class="main-content">
         <!-- Your data display content goes here -->
         
-        <h1>Product Name : []</h1>
+        <h1>Product Name : [<%= product.name %>]</h1>
 
-        <form action="" method="post">
+        <h2>Upload Image</h2>
+        <form action="/admin/product/productGallery/<%= product.id %>" method="post" enctype="multipart/form-data">
+            <div id="previewImage"></div>
 
+            <div class="form-group">
+                <input type="file" name="image" id="imageInput">
+            </div>
+            <button type="submit">Upload</button>
         </form>
 
-        <div class="owl-carousel">
+        <div class="gallery">
             <% gallery.forEach(img => { %>
                 <div>
                     <img src="<%= img.image.replace('public', '') %>" alt="">
@@ -31,6 +37,20 @@
     </div>
 
     <script src="/javascripts/theme.js"></script>
+
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('previewImage');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview Image" style="max-width: 200px; height: auto;">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
 
 </body>

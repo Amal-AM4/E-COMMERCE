@@ -49,7 +49,29 @@ async function productGallery (req, res) {
                 productId: pid
             }
         });
-        res.render('product/productGallery', { gallery: productImg });
+        const productData = await prisma.product.findUnique({
+            where: {
+                id: pid
+            }
+        });
+        res.render('product/productGallery', { gallery: productImg, product: productData });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function addProductGallery (req, res) {
+    try {
+        const id = parseInt(req.params.id);
+        const thumbPath = req.file ? req.file.path : null;
+        const addImage = await prisma.productGallery.create({
+            data: {
+                productId: id,
+                image: thumbPath
+            }
+        });
+
+        res.redirect(`/admin/product/productGallery/${id}`);
     } catch (error) {
         console.error(error);
     }
@@ -57,5 +79,5 @@ async function productGallery (req, res) {
 
 
 module.exports = { 
-    productList, productView, productGallery
+    productList, productView, productGallery, addProductGallery
 }
