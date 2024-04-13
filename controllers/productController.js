@@ -41,7 +41,21 @@ async function productView (req, res) {
     }
 }
 
+async function productGallery (req, res) {  
+    try {
+        const pid = parseInt(req.params.id);
+        const productImg = await prisma.productGallery.findMany({
+            where: {
+                productId: pid
+            }
+        });
+        res.render('product/productGallery', { gallery: productImg });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = { 
-    productList, productView
+    productList, productView, productGallery
 }

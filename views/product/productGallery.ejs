@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product | </title>
+
+    <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
+    <link rel="stylesheet" href="/stylesheets/product/productGallery.css">
+</head>
+<body>
+    <% include ../admin-panal/sidebar.ejs %>
+
+    <div class="main-content">
+        <!-- Your data display content goes here -->
+        
+        <h1>Product Name : []</h1>
+
+        <form action="" method="post">
+
+        </form>
+
+        <div class="owl-carousel">
+            <% gallery.forEach(img => { %>
+                <div>
+                    <img src="<%= img.image.replace('public', '') %>" alt="">
+                </div>
+            <% }) %>
+        </div>
+
+    </div>
+
+    <script src="/javascripts/theme.js"></script>
+
+
+</body>
+</html>

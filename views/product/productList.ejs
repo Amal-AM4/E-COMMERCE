@@ -34,6 +34,7 @@
                         <th>Qty</th>
                         <th>Total Price</th>
                         <th>Discount Price</th>
+                        <th>Gallery</th>
                         <th>View</th>
                         <th>Update</th>
                         <th>Delete</th>
@@ -50,6 +51,7 @@
                         <td><%= col.quantity %></td>
                         <td><span>&#8377;</span> <%= col.total_price %></td>
                         <td><span>&#8377;</span> <%= col.dicount_price %></td>
+                        <td><a href="/admin/product/productGallery/<%= col.id %>">Add Image</a></td>
                         <td><a href="/admin/product/productView/<%= col.pid %>/<%= col.id %>">view</a></td>
                         <td><a href="#">edit</a></td>
                         <td><a href="#">remove</a></td>
