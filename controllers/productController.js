@@ -63,7 +63,6 @@ async function productGallery (req, res) {
 async function addProductGallery (req, res) {
     try {
         const id = parseInt(req.params.id);
-        const image = req.body.image;
         const thumbPath = req.file ? req.file.path : null;
 
         if (thumbPath === null) {
@@ -85,7 +84,20 @@ async function addProductGallery (req, res) {
     }
 }
 
+async function removeProductGallery (req, res) {  
+    try {
+        const id = parseInt(req.params.id);
+        const pageId = parseInt(req.params.pageId);
+        const deletedRecord = await prisma.productGallery.delete({
+            where: { id: id }
+        });
+        res.redirect(`/admin/product/productGallery/${pageId}`);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = { 
-    productList, productView, productGallery, addProductGallery
+    productList, productView, productGallery, addProductGallery, removeProductGallery
 }

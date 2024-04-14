@@ -23,3 +23,39 @@ form {
 form button {
     margin-top: 20px;
 }
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.main-gallery {
+    position: relative;
+}
+
+.bi-x-circle-fill {
+    text-decoration: none;
+    color: #f84141;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    top: 4px;
+}
+
+.bi-x-circle-fill:hover {
+    color: #c43030;
+}

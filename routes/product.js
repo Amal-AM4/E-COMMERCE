@@ -1,5 +1,5 @@
 const express = require('express');
-const { productList,productView,productGallery,addProductGallery } = require('../controllers/productController');
+const { productList,productView,productGallery,addProductGallery, removeProductGallery } = require('../controllers/productController');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const multer = require('multer');
 const path = require('path');
@@ -21,6 +21,7 @@ router.get('/productList', authenticateAdmin, productList);
 router.get('/productView/:pid/:id', authenticateAdmin, productView);
 router.get('/productGallery/:id', authenticateAdmin, productGallery);
 router.post('/productGallery/:id', upload.single('image'), addProductGallery);
+router.get('/productRemove/:id/:pageId', authenticateAdmin, removeProductGallery);
 
 
 
