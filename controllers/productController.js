@@ -54,7 +54,7 @@ async function productGallery (req, res) {
                 id: pid
             }
         });
-        res.render('product/productGallery', { gallery: productImg, product: productData });
+        res.render('product/productGallery', { gallery: productImg, product: productData, messages: req.flash() });
     } catch (error) {
         console.error(error);
     }
@@ -63,15 +63,23 @@ async function productGallery (req, res) {
 async function addProductGallery (req, res) {
     try {
         const id = parseInt(req.params.id);
+        const image = req.body.image;
         const thumbPath = req.file ? req.file.path : null;
-        const addImage = await prisma.productGallery.create({
-            data: {
-                productId: id,
-                image: thumbPath
-            }
-        });
 
-        res.redirect(`/admin/product/productGallery/${id}`);
+        if (thumbPath === null) {
+            req.flash('error', 'Please upload a image.');
+            return res.redirect(`/admin/product/productGallery/${id}`);
+        } else {
+            const addImage = await prisma.productGallery.create({
+                data: {
+                    productId: id,
+                    image: thumbPath
+                }
+            });
+            req.flash('success', 'Image uploaded successfully.');
+            return res.redirect(`/admin/product/productGallery/${id}`);
+        }
+
     } catch (error) {
         console.error(error);
     }
