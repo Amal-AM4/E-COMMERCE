@@ -83,11 +83,8 @@ async function pageConfirmation (req, res) {
 
 async function userConfirmation (req, res) {
     try {
-        console.log('start');
         const confirmationKey = req.body.keyValue;
         const email = req.params.id;
-
-        console.log(confirmationKey, email);
 
         const existingUser = await prisma.user.findUnique({
             where: {
@@ -110,7 +107,6 @@ async function userConfirmation (req, res) {
         } else {
             console.log("invalid key");
         }
-
 
     } catch (error) {
         console.error(error);
