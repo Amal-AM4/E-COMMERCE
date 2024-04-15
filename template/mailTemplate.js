@@ -72,7 +72,7 @@ function mailDesign (codeNo, name) {
             line-height: 1.2rem;
         }
 
-        @media only screen and (min-width: 320px) and (max-width: 375px) {
+        @media only screen and (min-width: 320px) and (max-width: 376px) {
             .container {
                 width: 90%;
             }
@@ -80,7 +80,7 @@ function mailDesign (codeNo, name) {
                 width: 98%;
             }
         }
-        @media only screen and (min-width: 375px) and (max-width: 425px) {
+        @media only screen and (min-width: 376px) and (max-width: 426px) {
             .container {
                 width: 90%;
             }
@@ -88,7 +88,7 @@ function mailDesign (codeNo, name) {
                 width: 98%;
             }
         }
-        @media only screen and (min-width: 425px) and (max-width: 769px) {
+        @media only screen and (min-width: 426px) and (max-width: 769px) {
             .container {
                 width: 70%;
             }
@@ -102,18 +102,18 @@ function mailDesign (codeNo, name) {
     <body>
 
         <div class="container">
-            <p class="heading">Here's your E-com launch code, @${name}!</p>
+            <p class="heading">Here's your MiniKart launch code, @${name}!</p>
             <div class="inner">
                 <div class="box">
                     <span>🤖</span>
-                    <p class="small-txt">Continue signing up for E-com by entering the code below:</p>
+                    <p class="small-txt">Continue signing up for MiniKart by entering the code below:</p>
                     <div class="screen">
-                        <p>${codeno}</p>
+                        <p>${codeNo}</p>
                     </div>
                 </div>
             </div>
             <p class="footer">You’re receiving this email because you 
-                recently created a new E-com account. 
+                recently created a new MiniKart account. 
                 If this wasn’t you, please ignore this email.</p>
         </div>
 

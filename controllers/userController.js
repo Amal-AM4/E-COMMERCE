@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require('bcrypt');
-const { transporter } = require("./nodemailer");
+const transporter = require("./nodemailer");
 const mailDesign = require("../template/mailTemplate");
 
 const prisma = new PrismaClient();
@@ -35,25 +35,27 @@ async function userRegistration (req, res) {
         // Create confirmation key and store user in the database
         const confirmationKey = generateUniqueRandomNumber();
         const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedconfirmationKey = await bcrypt.hash(confirmationKey, 10);
         const newUser = await prisma.user.create({
             data: {
                 name: name,
                 email: email,
                 password: hashedPassword,
-                confirmationKey: confirmationKey
+                confirmationKey: hashedconfirmationKey
             }
         });
 
         // Send confirmation email
         await sendConfirmationEmail(email, confirmationKey, name);
         
-        res.render('user/confirmationKey', { id: email });
+        res.redirect(`/users/confirmationKey/${email}`);
 
     } catch (error) {
         console.error(error);
     }
 }
 
+// sending code to corresponding mail
 async function sendConfirmationEmail(senderMail, codeNo, name) {
     try {
         const info = await transporter.sendMail({
@@ -70,15 +72,50 @@ async function sendConfirmationEmail(senderMail, codeNo, name) {
     }
 }
 
-async function userConfirmation (req, res) {
+async function pageConfirmation (req, res) {
     try {
-        res.render('/confirmationKey');
+        const email = req.params.id;
+        res.render('user/confirmationKey', { email: email});
     } catch (error) {
         console.error(error);
     }
 }
 
+async function userConfirmation (req, res) {
+    try {
+        console.log('start');
+        const confirmationKey = req.body.keyValue;
+        const email = req.params.id;
 
+        console.log(confirmationKey, email);
+
+        const existingUser = await prisma.user.findUnique({
+            where: {
+                email: email,
+            }
+        }); 
+
+        isConfirmed = await bcrypt.compare(confirmationKey, existingUser.confirmationKey);
+
+        if (isConfirmed) {
+            const updatedUser = await prisma.user.update({
+                where: {
+                    id: existingUser.id
+                },
+                data: {
+                    isVerified: true
+                }
+            });
+            return res.redirect('/');
+        } else {
+            console.log("invalid key");
+        }
+
+
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 
 
@@ -90,6 +127,6 @@ function generateUniqueRandomNumber() {
 }
 
 module.exports = {
-    pageRegistration, userRegistration, userConfirmation
+    pageRegistration, userRegistration, userConfirmation, pageConfirmation
 };
 

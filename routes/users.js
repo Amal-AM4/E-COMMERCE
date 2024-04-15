@@ -4,6 +4,7 @@ var router = express.Router();
 
 router.get('/registration', userController.pageRegistration);
 router.post('/regConfirmation', userController.userRegistration);
-router.get('/confirmationKey', userController.userConfirmation);
+router.get('/confirmationKey/:id', userController.pageConfirmation);
+router.post('/confirmationKey/:id', userController.userConfirmation);
 
 module.exports = router;
