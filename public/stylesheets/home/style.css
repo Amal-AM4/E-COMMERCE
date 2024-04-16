@@ -228,7 +228,7 @@ ul{
     margin: 100px auto 50px;
 }
 select{
-    border: 1px solid #ff523b;
+    border: 1px solid #0F3558;
     padding: 5px;
 }
 select:focus{
@@ -239,7 +239,7 @@ select:focus{
 }
 .page-btn span{
     display: inline-block;
-    border: 1px solid #ff523b;
+    border: 1px solid #0F3558;
     margin-left: 10px;
     width: 40px;
     height: 40px;
@@ -248,7 +248,7 @@ select:focus{
     cursor: pointer;
 }
 .page-btn span:hover{
-    background: #ff523b;
+    background: #0F3558;
     color: white;
 }
 
@@ -278,14 +278,14 @@ select:focus{
     padding-left: 10px;
     font-size: 20px;
     margin-left: 10px;
-    border: 1px solid #ff523b;
+    border: 1px solid #0F3558;
     margin-right: 10px;
 }
 input:focus{
     outline: none;
 }
 .single-product .fa{
-    color: #ff523b;
+    color: #0F3558;
     margin-left: 10px;
 }
 .small-img-row{
@@ -313,7 +313,7 @@ th{
     text-align: left;
     padding: 5px;
     color: #fff;
-    background: #ff523b;
+    background: #0F3558;
     font-weight: normal;
 }
 td{
@@ -325,7 +325,7 @@ td input{
     padding: 5px;
 }
 td a{
-    color: #ff523b;
+    color: #0F3558;
     font-size: 12px;
 }
 td img{
@@ -338,7 +338,7 @@ td img{
     justify-content: flex-end;
 }
 .total-price table{
-    border-top: 3px solid #ff523b;
+    border-top: 3px solid #0F3558;
     width: 100%;
     max-width: 400px;
 }
@@ -411,7 +411,7 @@ form a{
 #Indicator{
     width: 100px;
     border: none;
-    background: #ff523b;
+    background: #0F3558;
     height: 3px;
     margin-top: 8px;
     transform: translateX(100px);
