@@ -62,15 +62,16 @@ model productGallery {
 }
 
 model user {
-  id              Int      @id @default(autoincrement())
-  user_uuid       String   @unique @default(uuid())
-  name            String   @db.VarChar(255)
-  email           String   @unique
-  password        String
-  isVerified      Boolean  @default(false)
-  confirmationKey String   @unique
-  created_at      DateTime @default(now())
-  modified_at     DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  user_uuid        String   @unique @default(uuid())
+  name             String   @db.VarChar(255)
+  email            String   @unique
+  password         String
+  isVerified       Boolean  @default(false)
+  isAddressUpdated Boolean  @default(false)
+  confirmationKey  String   @unique
+  created_at       DateTime @default(now())
+  modified_at      DateTime @updatedAt
 
   @@map(name: "user")
 }
