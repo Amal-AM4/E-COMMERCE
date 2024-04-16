@@ -18,6 +18,8 @@
         <!-- Your data display content goes here -->
         <h1>Product Item [<%= data.name %>]</h1>
         <p>Category: <%= data.category.name %></p>
+        <p>Total Amt: <b><sup>&#8377;</sup><%= data.total_price %></b></p>
+        <p>Dis Amt: <b><sup>&#8377;</sup><%= data.dicount_price %></b></p>
         <h4>Display Picture</h4>
         <img src="<%= data.thumb_img.replace('public', '') %>" alt="" class="thumb">
 
@@ -29,7 +31,16 @@
         <% }) %>
         </div>
 
-
+        <% function renderRawHTML(html) { %>
+            <%- html %>
+        <% } %>
+        
+        <div class="desc" id="desc">
+            <h3>Description:</h3>
+            <% renderRawHTML(data.desc) %>
+        </div>
+        
+        
 
     </div>
 
@@ -45,6 +56,7 @@
                 autoWidth:false,
             });
         });
+
     </script>
 </body>
 </html>
