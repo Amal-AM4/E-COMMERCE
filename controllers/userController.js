@@ -1,11 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 const transporter = require("./nodemailer");
 const mailDesign = require("../template/mailTemplate");
 
 const prisma = new PrismaClient();
-require("dotenv").config();
-
+require('dotenv').config();
+const CODE = process.env.JSON_KEY;
 
 async function userLogin (req, res) {  
     try {
@@ -15,6 +16,38 @@ async function userLogin (req, res) {
     }
 }
 
+async function loginProcess (req, res) {  
+    try {
+        const {email, password } = req.body;
+
+        // validate gmail address format
+        const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+        if (!gmailRegex.test(email)) {
+            return res.status(400).json({ error: 'Invalid Gmail address format' });
+        }
+
+        const existingUser = await prisma.user.findUnique({
+            where: { email: email }
+        });
+
+        if (!existingUser) {
+            res.redirect('/users/login');
+        } else {
+            const isPassword = await bcrypt.compare(password, existingUser.password);
+            if (isPassword) {
+
+                const token = jwt.sign({ userId: existingUser.id }, CODE, { expiresIn: '2h' });
+                res.cookie("userToken", token, { httpOnly: true });
+
+                res.redirect('/');
+            }
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 async function pageRegistration (req, res) {
     try {
@@ -124,7 +157,6 @@ async function userConfirmation (req, res) {
 }
 
 
-
 function generateUniqueRandomNumber() {
     const randomNumber = Math.floor(Math.random() * 900000) + 100000;
     return randomNumber.toString();
@@ -132,6 +164,6 @@ function generateUniqueRandomNumber() {
 
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
-    userLogin,
+    userLogin, loginProcess
 };
 

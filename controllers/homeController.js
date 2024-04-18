@@ -1,4 +1,25 @@
-async function pageProduct (req, res){
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
+const CODE = process.env.JSON_KEY;
+
+async function homePage (req, res, next){
+    const userToken = req.cookies.userToken;
+
+    if (userToken === undefined) {
+        res.render('index');
+    } else {
+        const user = jwt.verify(userToken, CODE);
+        console.log(user);
+
+        console.log("else part");
+        res.render('index');
+    }
+
+    
+}
+
+async function pageProduct (req, res, next){
     res.render('products');
 }
 
@@ -11,5 +32,5 @@ async function pageCart (req, res){
 }
 
 module.exports = {
-    pageProduct, pageProductDetails, pageCart
+    homePage, pageProduct, pageProductDetails, pageCart
 }

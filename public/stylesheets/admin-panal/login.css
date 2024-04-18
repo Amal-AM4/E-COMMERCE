@@ -32,6 +32,7 @@ body {
 }
 
 .container input[type="text"],
+.container input[type="email"],
 .container input[type="password"],
 .container button {
     outline: none;

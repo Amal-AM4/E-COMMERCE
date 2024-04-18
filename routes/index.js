@@ -1,11 +1,10 @@
 var express = require('express');
 const homeController = require('../controllers/homeController');
+const authenticateUser = require('../middlewares/authenticateUser');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+router.get('/', homeController.homePage);
 
 router.get('/products', homeController.pageProduct);
 router.get('/cart', homeController.pageCart);
