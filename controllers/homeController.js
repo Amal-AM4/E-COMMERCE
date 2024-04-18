@@ -1,4 +1,6 @@
+const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
+const prisma = new PrismaClient();
 
 require('dotenv').config();
 const CODE = process.env.JSON_KEY;
@@ -7,16 +9,19 @@ async function homePage (req, res, next){
     const userToken = req.cookies.userToken;
 
     if (userToken === undefined) {
-        res.render('index');
+        res.render('index', { active: false });
     } else {
         const user = jwt.verify(userToken, CODE);
-        console.log(user);
+        try {
+            const userModel = await prisma.user.findUnique({
+                where: { id: user.userId }
+            });
 
-        console.log("else part");
-        res.render('index');
+            res.render('index', { active: true, userTbl: userModel });
+        } catch (error) {
+            console.error(error);
+        }
     }
-
-    
 }
 
 async function pageProduct (req, res, next){

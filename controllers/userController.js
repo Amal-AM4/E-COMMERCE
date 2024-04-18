@@ -16,6 +16,15 @@ async function userLogin (req, res) {
     }
 }
 
+async function userLogout (req, res) {  
+    try {
+        res.clearCookie('userToken');
+        return res.redirect('/');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 async function loginProcess (req, res) {  
     try {
         const {email, password } = req.body;
@@ -164,6 +173,6 @@ function generateUniqueRandomNumber() {
 
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
-    userLogin, loginProcess
+    userLogin, loginProcess, userLogout
 };
 
