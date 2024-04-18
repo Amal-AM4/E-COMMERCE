@@ -6,6 +6,16 @@ const mailDesign = require("../template/mailTemplate");
 const prisma = new PrismaClient();
 require("dotenv").config();
 
+
+async function userLogin (req, res) {  
+    try {
+        res.render('user/login');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 async function pageRegistration (req, res) {
     try {
         res.render('user/register');
@@ -115,14 +125,13 @@ async function userConfirmation (req, res) {
 
 
 
-
-
 function generateUniqueRandomNumber() {
     const randomNumber = Math.floor(Math.random() * 900000) + 100000;
     return randomNumber.toString();
 }
 
 module.exports = {
-    pageRegistration, userRegistration, userConfirmation, pageConfirmation
+    pageRegistration, userRegistration, userConfirmation, pageConfirmation,
+    userLogin,
 };
 

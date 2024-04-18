@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User | Login</title>
+    <link rel="stylesheet" href="/stylesheets/admin-panal/login.css">
+    <style>
+        .account {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        .account a:link, 
+        .account a:visited {
+            text-decoration: none;
+            color: rgb(86, 190, 86);
+        }
+        .account a:hover {
+            transition: all 0.2s ease-in-out;
+            color: rgb(46, 105, 46);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 User Login</h1>
+        <form action="/users/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            <p class="account">If you don't have account please <a href="/users/registration">create an account.</a></p>
+        </form>
+        <p class="copyright">All rights go to Amal A M 2024</p>
+    </div>
+</body>
+</html>
