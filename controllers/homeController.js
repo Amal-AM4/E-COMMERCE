@@ -25,15 +25,60 @@ async function homePage (req, res, next){
 }
 
 async function pageProduct (req, res, next){
-    res.render('products');
+    const userToken = req.cookies.userToken;
+
+    if (userToken === undefined) {
+        res.render('products', { active: false });
+    } else {
+        const user = jwt.verify(userToken, CODE);
+        try {
+            const userModel = await prisma.user.findUnique({
+                where: { id: user.userId }
+            });
+
+            res.render('products', { active: true, userTbl: userModel });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
 
 async function pageProductDetails (req, res){
-    res.render('product_details');
+    const userToken = req.cookies.userToken;
+
+    if (userToken === undefined) {
+        res.render('product_details', { active: false });
+    } else {
+        const user = jwt.verify(userToken, CODE);
+        try {
+            const userModel = await prisma.user.findUnique({
+                where: { id: user.userId }
+            });
+
+            res.render('product_details', { active: true, userTbl: userModel });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
 
 async function pageCart (req, res){
-    res.render('cart');
+    const userToken = req.cookies.userToken;
+
+    if (userToken === undefined) {
+        res.render('cart', { active: false });
+    } else {
+        const user = jwt.verify(userToken, CODE);
+        try {
+            const userModel = await prisma.user.findUnique({
+                where: { id: user.userId }
+            });
+
+            res.render('cart', { active: true, userTbl: userModel });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
 
 module.exports = {
