@@ -10,6 +10,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="/stylesheets/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/stylesheets/owlcarousel/owl.theme.default.min.css">
+
     <style>
         .bi-box-arrow-right {
             font-size: 24px;
@@ -46,19 +50,12 @@
             <div class="col-2">
                 <img src="<%= productData.thumb_img.replace('public', '') %>" width="100%" id="ProductImg">
 
-                <div class="small-img-row">
-                    <div class="small-img-col">
-                        <img src="images/gallery-1.jpg" width="100%" class="small-img">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="images/gallery-2.jpg" width="100%" class="small-img">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="images/gallery-3.jpg" width="100%" class="small-img">
-                    </div>
-                    <div class="small-img-col">
-                        <img src="images/gallery-4.jpg" width="100%" class="small-img">
-                    </div>
+                <div class="owl-carousel small-img-row">
+                    <% gallery.forEach(img => { %>
+                        <div class="item">
+                            <img src="<%= img.image.replace('public', '') %>" alt="">
+                        </div>
+                    <% }) %>
                 </div>
 
             </div>
@@ -67,6 +64,8 @@
                 <h1 class="productName"><%= productData.name %></h1>
                 <h4>&#8377;<%= productData.dicount_price %>.00 &nbsp;<small><strike>&#8377;<%= productData.total_price %>.00</strike></small></h4>
                 
+                <p>Available stock: <%= productData.quantity %></p>
+
                 <label for="">Qty</label>
                 <input type="number" value="1" name="qty">
                 <a href="" class="btn">Add To Cart</a>
@@ -90,54 +89,14 @@
     <!-- Products -->
     <div class="small-container">
         <div class="row">
-            <div class="col-4">
-                <img src="images/product-9.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
+            <% randomProduct.forEach(col => { %>
+                <div class="col-4">
+                    <a href="/product_details/<%= col.pid %>"><img src="<%= col.thumb_img.replace('public', '') %>"></a>
+                    <h4><%= col.name %></h4>
+                    <h5><%= col.category.name %></h5>
+                    <p>&#8377; <%= col.dicount_price %>.00</p>
                 </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/product-10.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/product-11.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
-            <div class="col-4">
-                <img src="images/product-12.jpg">
-                <h4>Red Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <p>$50.00</p>
-            </div>
+            <% }) %>
         </div>
     </div>
 
@@ -183,6 +142,19 @@
     </div>
 
     <!-- javascript -->
+
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/owlcarousel/owl.carousel.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                loop: false,
+                autoWidth:false,
+            });
+        });
+
+    </script>
 
     <script>
         var MenuItems = document.getElementById("MenuItems");

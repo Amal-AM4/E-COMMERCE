@@ -48,13 +48,19 @@ async function homePage (req, res, next){
 
             const randomProduct = await prisma.product.findMany({
                 take: 4,
+                include: {
+                    category: true
+                }
             });
 
             const latestEntries = await prisma.product.findMany({
                 orderBy: {
                   created_at: 'desc', // Assuming 'created_at' is the timestamp field
                 },
-                take: 8, // Limiting to 4 entries, you can adjust this as needed
+                take: 8,
+                include: {
+                    category: true
+                } // Limiting to 4 entries, you can adjust this as needed
             });
 
             const smartBand = await prisma.product.findUnique({
@@ -96,17 +102,31 @@ async function pageProductDetails (req, res){
 
     if (userToken === undefined) {
         try {
+
             const productData = await prisma.product.findUnique({
                 where: {
                     pid: productId
                 },
                 include: {
                     category: true,
-                    productImg: true
                 }
             });
 
-            res.render('product_details', { active: false, productData: productData });
+            const gallery = await prisma.productGallery.findMany({
+                where: {
+                    productId : productData.id
+                }
+            });
+
+            const randomProduct = await prisma.product.findMany({
+                take: 4,
+                include: {
+                    category: true,
+                }
+            });
+
+            res.render('product_details', { active: false, productData: productData, randomProduct: randomProduct,
+                gallery: gallery });
         } catch (error) {
             console.error(error);
         }
@@ -118,7 +138,31 @@ async function pageProductDetails (req, res){
                 where: { id: user.userId }
             });
 
-            res.render('product_details', { active: true, userTbl: userModel });
+            const productData = await prisma.product.findUnique({
+                where: {
+                    pid: productId
+                },
+                include: {
+                    category: true,
+                }
+            });
+
+            const gallery = await prisma.productGallery.findMany({
+                where: {
+                    productId : productData.id
+                }
+            });
+
+            const randomProduct = await prisma.product.findMany({
+                take: 4,
+                include: {
+                    category: true,
+                }
+            });
+
+            res.render('product_details', { active: true, userTbl: userModel,
+                productData: productData, randomProduct: randomProduct,
+                gallery: gallery });
         } catch (error) {
             console.error(error);
         }

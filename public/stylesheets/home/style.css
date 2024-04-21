@@ -8,6 +8,16 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 
+.small-img-row .item {
+    padding: 10px;
+    /* margin-right: 10px; */
+}
+.small-img-row .item img {
+    border-radius: 10px;
+    box-shadow: 0px 10px 14px #12121242;
+    cursor: pointer;
+}
+
 .navbar
 {
     display: flex;
