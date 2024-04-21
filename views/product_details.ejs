@@ -18,6 +18,11 @@
         .bi-box-arrow-right {
             font-size: 24px;
         }
+        #off-price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #991c1c;
+        }
     </style>
 </head>
 
@@ -63,6 +68,8 @@
                 <p>Home / <%= productData.category.name %></p>
                 <h1 class="productName"><%= productData.name %></h1>
                 <h4>&#8377;<%= productData.dicount_price %>.00 &nbsp;<small><strike>&#8377;<%= productData.total_price %>.00</strike></small></h4>
+
+                <p id="off-price"></p>
                 
                 <p>Available stock: <%= productData.quantity %></p>
 
@@ -153,6 +160,15 @@
                 autoWidth:false,
             });
         });
+
+        const off = document.getElementById('off-price');
+
+        const discount = `<%= productData.dicount_price %>`;
+        const total = `<%= productData.total_price %>`;
+
+        const discountPercentage = ((total - discount) / total) * 100;
+
+        off.innerHTML = `${discountPercentage.toFixed(1)}% off `;
 
     </script>
 
