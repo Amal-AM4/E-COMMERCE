@@ -9,7 +9,30 @@ async function homePage (req, res, next){
     const userToken = req.cookies.userToken;
 
     if (userToken === undefined) {
-        res.render('index', { active: false });
+        try {
+            const randomProduct = await prisma.product.findMany({
+                take: 4,
+            });
+
+            const latestEntries = await prisma.product.findMany({
+                orderBy: {
+                  created_at: 'desc', // Assuming 'created_at' is the timestamp field
+                },
+                take: 8, // Limiting to 4 entries, you can adjust this as needed
+            });
+
+            const smartBand = await prisma.product.findUnique({
+                where: { id: 13}
+            });
+
+            res.render('index', {
+                    active: false, randomProduct: randomProduct, latestEntries: latestEntries,
+                    smartBand: smartBand
+                });
+        } catch (error) {
+            console.error(error);
+        }
+        
     } else {
         const user = jwt.verify(userToken, CODE);
         try {
@@ -17,7 +40,25 @@ async function homePage (req, res, next){
                 where: { id: user.userId }
             });
 
-            res.render('index', { active: true, userTbl: userModel });
+            const randomProduct = await prisma.product.findMany({
+                take: 4,
+            });
+
+            const latestEntries = await prisma.product.findMany({
+                orderBy: {
+                  created_at: 'desc', // Assuming 'created_at' is the timestamp field
+                },
+                take: 8, // Limiting to 4 entries, you can adjust this as needed
+            });
+
+            const smartBand = await prisma.product.findUnique({
+                where: { id: 13}
+            });
+
+            res.render('index', {
+                    active: true, userTbl: userModel, randomProduct: randomProduct, latestEntries: latestEntries,
+                    smartBand: smartBand 
+                });
         } catch (error) {
             console.error(error);
         }
