@@ -418,6 +418,12 @@ form a{
     transition: transform 1s;
 }
 
+.productName {
+    font-size: 28px !important;
+    line-height: 2.0rem !important;
+}
+
+
 /* Media query for menu */
 @media only screen and (max-width: 800px){
 

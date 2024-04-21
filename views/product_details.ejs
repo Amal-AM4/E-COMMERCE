@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products | RedStore</title>
+    <title><%= productData.name %> | MiniKart</title>
     <link rel="stylesheet" href="/stylesheets/home/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -21,7 +21,7 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <a href="/"><img src="images/logo.png" alt="logo" width="125px"></a>
+                <a href="/"><img src="/images/logo.png" alt="logo" width="125px"></a>
             </div>
             <nav>
                 <ul id="MenuItems">
@@ -35,7 +35,7 @@
                     <% } %>
                 </ul>
             </nav>
-            <a href="/cart"><img src="images/cart.png" width="30px" height="30px"></a>
+            <a href="/cart"><img src="/images/cart.png" width="30px" height="30px"></a>
             <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
         </div>
     </div>
@@ -44,7 +44,7 @@
     <div class="small-container single-product">
         <div class="row">
             <div class="col-2">
-                <img src="images/gallery-1.jpg" width="100%" id="ProductImg">
+                <img src="<%= productData.thumb_img.replace('public', '') %>" width="100%" id="ProductImg">
 
                 <div class="small-img-row">
                     <div class="small-img-col">
@@ -63,18 +63,20 @@
 
             </div>
             <div class="col-2">
-                <p>Home / T-Shirt</p>
-                <h1>Red Printed T-Shirt by HRX</h1>
-                <h4>$50.00</h4>
-
+                <p>Home / <%= productData.category.name %></p>
+                <h1 class="productName"><%= productData.name %></h1>
+                <h4>&#8377;<%= productData.dicount_price %>.00 &nbsp;<small><strike>&#8377;<%= productData.total_price %>.00</strike></small></h4>
+                
                 <label for="">Qty</label>
-                <input type="number" value="1">
+                <input type="number" value="1" name="qty">
                 <a href="" class="btn">Add To Cart</a>
 
                 <h3>Product Details <i class="fa fa-indent"></i></h3>
                 <br>
-                <p>Give your summer wardrobe a style upgrade with the HRX Men's Active T-Shirt. Team it with a pair of
-                    shorts for your morning workout or a denims for an evening out with the guys.</p>
+                <% function renderRawHTML(html) { %>
+                    <%- html %>
+                <% } %>
+                <p class="productDetails"><% renderRawHTML(productData.desc) %></p>
             </div>
         </div>
     </div>
@@ -147,12 +149,12 @@
                     <h3>Download Our App</h3>
                     <p>Download App for Android and ios mobile phone.</p>
                     <div class="app-logo">
-                        <img src="images/play-store.png">
-                        <img src="images/app-store.png">
+                        <img src="/images/play-store.png">
+                        <img src="/images/app-store.png">
                     </div>
                 </div>
                 <div class="footer-col-2">
-                    <img src="images/logo-white.png">
+                    <img src="/images/logo-white.png">
                     <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
                     </p>
                 </div>
@@ -176,7 +178,7 @@
                 </div>
             </div>
             <hr>
-            <p class="copyright">Copyright 2020 - Samwit Adhikary</p>
+            <p class="copyright">Copyright 2024 - Amal A M</p>
         </div>
     </div>
 

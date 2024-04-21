@@ -12,6 +12,9 @@ async function homePage (req, res, next){
         try {
             const randomProduct = await prisma.product.findMany({
                 take: 4,
+                include: {
+                    category: true
+                }
             });
 
             const latestEntries = await prisma.product.findMany({
@@ -19,6 +22,9 @@ async function homePage (req, res, next){
                   created_at: 'desc', // Assuming 'created_at' is the timestamp field
                 },
                 take: 8, // Limiting to 4 entries, you can adjust this as needed
+                include: {
+                    category: true
+                }
             });
 
             const smartBand = await prisma.product.findUnique({
@@ -86,9 +92,25 @@ async function pageProduct (req, res, next){
 
 async function pageProductDetails (req, res){
     const userToken = req.cookies.userToken;
+    const productId = req.params.pid;
 
     if (userToken === undefined) {
-        res.render('product_details', { active: false });
+        try {
+            const productData = await prisma.product.findUnique({
+                where: {
+                    pid: productId
+                },
+                include: {
+                    category: true,
+                    productImg: true
+                }
+            });
+
+            res.render('product_details', { active: false, productData: productData });
+        } catch (error) {
+            console.error(error);
+        }
+        
     } else {
         const user = jwt.verify(userToken, CODE);
         try {

@@ -63,6 +63,7 @@
                 <div class="col-4">
                     <a href="/product_details/<%= col.pid %>"><img src="<%= col.thumb_img.replace('public', '') %>"></a>
                     <h4><%= col.name %></h4>
+                    <h5><%= col.category.name %></h5>
                     <p>&#8377; <%= col.dicount_price %>.00</p>
                 </div>
             <% }) %>
@@ -75,6 +76,7 @@
                 <div class="col-4">
                     <a href="/product_details/<%= col.pid %>"><img src="<%= col.thumb_img.replace('public', '') %>"></a>
                     <h4><%= col.name %></h4>
+                    <h5><%= col.category.name %></h5>
                     <p>&#8377; <%= col.dicount_price %>.00</p>
                 </div>
             <% }) %>
