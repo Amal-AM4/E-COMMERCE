@@ -102,7 +102,15 @@ async function pageProduct (req, res, next){
                 where: { id: user.userId }
             });
 
-            res.render('products', { active: true, userTbl: userModel });
+            const result = await prisma.product.findMany({
+                skip: parseInt(req.query.skip),
+                take: parseInt(req.query.take),
+                include: {
+                    category: true
+                }
+            });
+
+            res.render('products', { active: true, userTbl: userModel, result:result });
         } catch (error) {
             console.error(error);
         }
