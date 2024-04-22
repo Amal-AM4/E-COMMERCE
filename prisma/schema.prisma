@@ -83,7 +83,7 @@ model userAddress {
   address_line String
   city         String @db.VarChar(255)
   state        String @db.VarChar(255)
-  postal_code  Int    
+  postal_code  Int
   country      String @db.VarChar(255)
 
   user   user @relation("userConn", fields: [userId], references: [id])

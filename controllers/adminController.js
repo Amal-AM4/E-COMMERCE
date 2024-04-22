@@ -158,9 +158,11 @@ async function viewUserData (req, res) {
                 isAddressUpdated: true
             },
             include: {
-                addresses: true, // Include user addresses
+                address: true, // Include user addresses
             },
         });
+
+
 
 
         res.render('admin-panal/userData', { usersWithAddresses: usersWithAddresses, });
