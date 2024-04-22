@@ -28,7 +28,7 @@ async function homePage (req, res, next){
             });
 
             const smartBand = await prisma.product.findUnique({
-                where: { id: 13}
+                where: { id: 6 }
             });
 
             res.render('index', {
@@ -64,12 +64,12 @@ async function homePage (req, res, next){
             });
 
             const smartBand = await prisma.product.findUnique({
-                where: { id: 13}
+                where: { id: 6 }
             });
 
             res.render('index', {
                     active: true, userTbl: userModel, randomProduct: randomProduct, latestEntries: latestEntries,
-                    smartBand: smartBand 
+                    smartBand: smartBand ,
                 });
         } catch (error) {
             console.error(error);
