@@ -26,7 +26,7 @@
             <nav>
                 <ul id="MenuItems">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/products">Products</a></li>
+                    <li><a href="/products?skip=0&take=8">Products</a></li>
                     <% if (active === true) { %>
                         <li><a href="/users/dashboard"><%= userTbl.name %></a></li>
                         <li><a href="/users/logout"><i class="bi bi-box-arrow-right"></i></a></li>
@@ -52,20 +52,23 @@
             </select>
         </div>
         <div class="row">
-            <div class="col-4">
-                <a href="/product_details"><img src="images/product-1.jpg"></a>
-                <h4>Red Printed T-Shirt</h4>
-                <p>$50.00</p>
-            </div>
+            
+            <% result.forEach(col => { %>
+                <div class="col-4">
+                    <a href="/product_details/<%= col.pid %>"><img src="<%= col.thumb_img.replace('public', '') %>"></a>
+                    <h4><%= col.name %></h4>
+                    <h5><%= col.category.name %></h5>
+                    <p>&#8377; <%= col.dicount_price %>.00</p>
+                </div>
+            <% }) %>
 
         </div>
 
         <div class="page-btn">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>&#8594;</span>
+            <a href="/products?skip=0&take=8"><span>1</span></a>
+            <a href="/products?skip=8&take=8"><span>2</span></a>
+            <a href="/products?skip=16&take=8"><span>3</span></a>
+            <a href="/products?skip=24&take=8"><span>4</span></a>
         </div>
     </div>
 

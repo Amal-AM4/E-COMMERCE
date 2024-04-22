@@ -81,17 +81,20 @@ async function pageProduct (req, res, next){
     const userToken = req.cookies.userToken;
 
     if (userToken === undefined) {
-
         try {
             const result = await prisma.product.findMany({
-                skip: req.query.skip,
-                take: req.query.take
+                skip: parseInt(req.query.skip),
+                take: parseInt(req.query.take),
+                include: {
+                    category: true
+                }
             });
+
+            res.render('products', { active: false, result:result });
         } catch (error) {
             console.error(error);
         }
 
-        res.render('products', { active: false });
     } else {
         const user = jwt.verify(userToken, CODE);
         try {
