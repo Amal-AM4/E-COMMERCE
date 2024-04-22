@@ -151,10 +151,19 @@ async function addProductItem (req, res) {
     }
 }
 
+async function viewUserData (req, res) {  
+    try {
+        res.render('admin-panal/userData');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = {
     loginPage, adminLogin, adminLogout, 
     dashboard, 
     productCategoryEjs, insertProductCategory,
-    addProduct, addProductItem
+    addProduct, addProductItem,
+    viewUserData,
 }
