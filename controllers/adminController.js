@@ -158,7 +158,7 @@ async function viewUserData (req, res) {
                 isAddressUpdated: true
             },
             include: {
-                address: true, // Include user addresses
+                addresses: true, // Include user addresses
             },
         });
 
