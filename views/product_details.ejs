@@ -44,7 +44,9 @@
                     <% } %>
                 </ul>
             </nav>
-            <a href="/cart"><img src="/images/cart.png" width="30px" height="30px"></a>
+            <% if (active === true) { %>
+                <a href="/cart"><img src="images/cart.png" width="30px" height="30px"></a>
+            <% } %>
             <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
         </div>
     </div>
@@ -75,7 +77,9 @@
 
                 <label for="">Qty</label>
                 <input type="number" value="1" name="qty">
-                <a href="/cart" class="btn">Add To Cart</a> 
+                <% if (active === true) { %>
+                    <a href="/cart" class="btn">Add To Cart</a>
+                <% } %>
                 <a href="" class="btn">Order Now</a>
 
                 <h3>Product Details <i class="fa fa-indent"></i></h3>
