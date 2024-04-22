@@ -5,6 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
     <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+
+    <style> 
+        a:link,
+        a:visited {
+            color: rgb(58, 137, 255);
+            text-decoration: none;
+        }
+
+        .table-bx table {
+            margin-top: 20px;
+            table-layout: auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        .table-bx table tr td img {
+            width: 100px;
+            height: auto;
+        }
+
+        .table-bx table th,
+        .table-bx table td {
+            vertical-align: middle;
+        }
+
+        .pagination {
+            color: #ececec;
+            display: flex;
+        }
+
+        .pagination li {
+            list-style-type: none;
+            padding: 10px 14px;
+        }
+        .pagination a {
+            text-decoration: none;
+            color: rgb(58, 137, 255);
+        }
+    </style>
+
 </head>
 <body>
     <% include sidebar.ejs %>
@@ -13,8 +54,61 @@
         <!-- Your data display content goes here -->
         <h1>User Details</h1>
 
+        <div class="table-bx">
+            <table class="table table-dark table-hover" id="example">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User Name</th>
+                        <th>email</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Pin code</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                
+                <% let count=1; %>
+                <% usersWithAddresses.forEach(col => { %>
+                <tr>
+                    <td><%= count %></td>
+                    <td><%= col.name %></td>
+                    <td><%= col.email %></td>
+                    <td><%= col.addresses.address_line %></td>
+                    <td><%= col.addresses.city %></td>
+                    <td><%= col.addresses.state %></td>
+                    <td><%= col.addresses.postal_code %></td>
+                    <td><%= col.addresses.country %></td>
+                    <td>Online</td>
+                    <td>delete</td>
+                </tr>
+                <% count ++; %>
+                <% }) %>
+                
+            </table>
+        </div>
+
     </div>
 
     <script src="/javascripts/theme.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#example').DataTable({
+            paging: true,
+            pageLength: 7,
+            lengthChange: true,
+            autoWidth: false,
+            searching: false,
+            bInfo: true,
+            bSort: true,
+        })
+    </script>
 </body>
 </html>

@@ -73,7 +73,7 @@ model user {
   created_at       DateTime @default(now())
   modified_at      DateTime @updatedAt
 
-  user userAddress[] @relation("userConn")
+  addresses userAddress[] @relation("userConn")
 
   @@map(name: "user")
 }
@@ -83,9 +83,9 @@ model userAddress {
   address_line String
   city         String @db.VarChar(255)
   state        String @db.VarChar(255)
-  postal_code  Int    @unique
+  postal_code  Int    
   country      String @db.VarChar(255)
 
-  userModel user @relation("userConn", fields: [userId], references: [id])
-  userId    Int
+  user   user @relation("userConn", fields: [userId], references: [id])
+  userId Int
 }

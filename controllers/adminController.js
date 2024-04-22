@@ -153,7 +153,17 @@ async function addProductItem (req, res) {
 
 async function viewUserData (req, res) {  
     try {
-        res.render('admin-panal/userData');
+        const usersWithAddresses = await prisma.user.findMany({
+            where: {
+                isAddressUpdated: true
+            },
+            include: {
+                addresses: true, // Include user addresses
+            },
+        });
+
+
+        res.render('admin-panal/userData', { usersWithAddresses: usersWithAddresses, });
     } catch (error) {
         console.error(error);
     }
