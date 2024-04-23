@@ -47,6 +47,7 @@ model product {
   categoryId Int
 
   productImg productGallery[] @relation("productImg")
+  productItem cartItem[] @relation("productItem")
 
   @@map(name: "product")
 }
@@ -74,6 +75,7 @@ model user {
   modified_at      DateTime @updatedAt
 
   addresses userAddress[] @relation("userConn")
+  cart cartItem[] @relation("userid")
 
   @@map(name: "user")
 }
@@ -88,4 +90,17 @@ model userAddress {
 
   user   user @relation("userConn", fields: [userId], references: [id])
   userId Int
+}
+
+model cartItem {
+  id Int @id @default(autoincrement())
+  quantity Int
+  created_at       DateTime @default(now())
+  modified_at      DateTime @updatedAt
+
+  user user @relation("userid", fields: [user_id], references: [id])
+  user_id Int
+
+  product product @relation("productItem", fields: [product_id], references: [id])
+  product_id Int
 }
