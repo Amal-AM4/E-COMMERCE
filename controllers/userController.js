@@ -17,12 +17,9 @@ async function userLogin (req, res) {
 }
 
 async function userLogout (req, res) {  
-    try {
-        res.clearCookie('userToken');
-        return res.redirect('/');
-    } catch (error) {
-        console.error(error);
-    }
+    console.log("test logout");
+    res.clearCookie('userToken');
+    return res.redirect('/');
 }
 
 async function loginProcess (req, res) {  
@@ -171,8 +168,17 @@ function generateUniqueRandomNumber() {
     return randomNumber.toString();
 }
 
+async function dashboard (req, res) {  
+    try {
+        res.render('user/dashboard');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
-    userLogin, loginProcess, userLogout
+    userLogin, loginProcess, userLogout,
+    dashboard,
 };
 
