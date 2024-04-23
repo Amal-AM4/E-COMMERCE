@@ -147,7 +147,7 @@ async function pageProductDetails (req, res){
             });
 
             res.render('product_details', { active: false, productData: productData, randomProduct: randomProduct,
-                gallery: gallery });
+                gallery: gallery, userTbl: {id: undefined} });
         } catch (error) {
             console.error(error);
         }

@@ -200,7 +200,9 @@
             const btnCart = document.getElementById('btn-cart');
             const qty = document.getElementById('qtyBox');
 
-            btnCart.addEventListener('click', passDataToCart);
+            if (btnCart != null) {
+                btnCart.addEventListener('click', passDataToCart);
+            }
 
             function passDataToCart() {
                 let qtyValue = parseInt(qty.value);
