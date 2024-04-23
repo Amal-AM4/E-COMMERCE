@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
 
     <style> 
+        .dataTables_filter {
+            margin-top: 10px;
+        }
+
+        .dataTables_filter input {
+            padding: 6px 14px;
+            border-radius: 4px;
+            outline: 0;
+        }
+
         a:link,
         a:visited {
             color: rgb(58, 137, 255);
@@ -106,7 +116,7 @@
             pageLength: 7,
             lengthChange: true,
             autoWidth: false,
-            searching: false,
+            searching: true,
             bInfo: true,
             bSort: true,
         })
