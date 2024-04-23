@@ -64,14 +64,14 @@
                                 %>
 
                                 <p><%= truncatedSentence %></p>
-                                <small>Price: &#8377;<%= col.product.dicount_price %></small>
+                                <small>Price: &#8377;<%= col.product.dicount_price %>.00</small>
                                 <br>
                                 <a href="/remove-cart/<%= col.id %>" style="color: #BD3638;">Remove</a>
                             </div>
                         </div>
                     </td>
                     <td><%= col.quantity %></td>
-                    <td>&#8377;<%= col.quantity *  col.product.dicount_price %></td>
+                    <td>&#8377;<%= col.quantity *  col.product.dicount_price %>.00</td>
                 </tr>
             <% }) %>
             
