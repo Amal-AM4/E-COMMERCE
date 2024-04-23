@@ -23,6 +23,10 @@
             font-weight: bold;
             color: #991c1c;
         }
+        .btn-cart {
+            border: none;
+            font-size: 18px;
+        }
     </style>
 </head>
 
@@ -76,9 +80,9 @@
                 <p>Available stock: <%= productData.quantity %></p>
 
                 <label for="">Qty</label>
-                <input type="number" value="1" name="qty">
+                <input type="number" value="1" name="qty" id="qtyBox">
                 <% if (active === true) { %>
-                    <a href="/cart" class="btn">Add To Cart</a>
+                    <button id="btn-cart" class="btn btn-cart">Add to Cart</button>
                 <% } %>
                 <a href="" class="btn">Order Now</a>
 
@@ -190,23 +194,24 @@
         }
     </script>
 
-    <!-- product gallery -->
-    <script>
-        var ProductImg = document.getElementById("ProductImg");
-        var SmallImg = document.getElementsByClassName("small-img");
 
-        SmallImg[0].onclick = function () {
-            ProductImg.src = SmallImg[0].src;
-        }
-        SmallImg[1].onclick = function () {
-            ProductImg.src = SmallImg[1].src;
-        }
-        SmallImg[2].onclick = function () {
-            ProductImg.src = SmallImg[2].src;
-        }
-        SmallImg[3].onclick = function () {
-            ProductImg.src = SmallImg[3].src;
-        }
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnCart = document.getElementById('btn-cart');
+            const qty = document.getElementById('qtyBox');
+
+            btnCart.addEventListener('click', passDataToCart);
+
+            function passDataToCart() {
+                let qtyValue = parseInt(qty.value);
+
+                if (qtyValue === 0 || qtyValue < 0) {
+                    qtyValue = 1;
+                }
+
+                window.location.href = `/cart/<%= userTbl.id %>/<%= productData.id %>/${qtyValue}`;
+            }
+        });
 
     </script>
 </body>

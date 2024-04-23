@@ -194,7 +194,12 @@ async function pageCart (req, res){
     const userToken = req.cookies.userToken;
 
     if (userToken === undefined) {
-        res.render('cart', { active: false });
+        try {
+            res.render('cart', { active: false });
+        } catch (error) {
+            console.error(error);
+        }
+        
     } else {
         const user = jwt.verify(userToken, CODE);
         try {
