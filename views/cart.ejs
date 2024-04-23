@@ -50,65 +50,45 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/buy-1.jpg">
-                        <div>
-                            <p>Red Printed T-Shirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="/">Remove</a>
+
+            <% cartItems.forEach(col => { %>
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="<%= col.product.thumb_img.replace('public', '') %>">
+                            <div>
+                                <%
+                                    const longSentence = col.product.name;
+                                    const maxLength = 30;
+                                    const truncatedSentence = longSentence.length > maxLength ? longSentence.substring(0, maxLength) + '...' : longSentence;
+                                %>
+
+                                <p><%= truncatedSentence %></p>
+                                <small>Price: &#8377;<%= col.product.dicount_price %></small>
+                                <br>
+                                <a href="/remove-cart/<%= col.id %>" style="color: #BD3638;">Remove</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50.00</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/buy-2.jpg">
-                        <div>
-                            <p>Red Printed T-Shirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50.00</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="images/buy-3.jpg">
-                        <div>
-                            <p>Red Printed T-Shirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50.00</td>
-            </tr>
+                    </td>
+                    <td><%= col.quantity %></td>
+                    <td>&#8377;<%= col.quantity *  col.product.dicount_price %></td>
+                </tr>
+            <% }) %>
+            
         </table>
         <div class="total-price">
             <table>
                 <tr>
                     <td>Subtotal</td>
-                    <td>$200.00</td>
+                    <td>&#8377;0.00</td>
                 </tr>
                 <tr>
                     <td>Tax</td>
-                    <td>$35.00</td>
+                    <td>&#8377;0.00</td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>$230.00</td>
+                    <td>&#8377;0.00</td>
                 </tr>
             </table>
         </div>
@@ -169,6 +149,7 @@
             }
         }
     </script>
+
 
 </body>
 

@@ -190,7 +190,7 @@ async function pageProductDetails (req, res){
     }
 }
 
-async function pageCart (req, res){
+async function pageViewCart (req, res){
     const userToken = req.cookies.userToken;
 
     if (userToken === undefined) {
@@ -207,7 +207,67 @@ async function pageCart (req, res){
                 where: { id: user.userId }
             });
 
-            res.render('cart', { active: true, userTbl: userModel });
+            const cartItems = await prisma.cartItem.findMany({
+                where: {
+                    user_id: user.userId
+                }, include: {
+                    user: true,
+                    product: true
+                }
+            });
+
+            res.render('cart', { active: true, userTbl: userModel, cartItems: cartItems, });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+async function removeCartItem (req, res) {  
+    try {
+        const removeItem = await prisma.cartItem.delete({
+            where: {
+                id: parseInt(req.params.id)
+            }
+        });
+        res.redirect('/cart');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function pageCart (req, res){
+    const userToken = req.cookies.userToken;
+
+    if (userToken === undefined) {
+        try {
+            res.render('cart', { active: false });
+        } catch (error) {
+            console.error(error);
+        }
+        
+    } else {
+        const user = jwt.verify(userToken, CODE);
+
+        let uid = parseInt(req.params.uid);
+        let pid = parseInt(req.params.pid);
+        let qty = parseInt(req.params.qty);
+
+        try {
+            const userModel = await prisma.user.findUnique({
+                where: { id: user.userId }
+            });
+
+            const insertCart = await prisma.cartItem.create({
+                data: {
+                    quantity: qty,
+                    user_id: uid,
+                    product_id: pid
+                }
+            });
+
+            // res.render('cart', { active: true, userTbl: userModel });
+            res.redirect('/cart');
         } catch (error) {
             console.error(error);
         }
@@ -215,5 +275,6 @@ async function pageCart (req, res){
 }
 
 module.exports = {
-    homePage, pageProduct, pageProductDetails, pageCart
+    homePage, pageProduct, pageProductDetails, pageCart, pageViewCart,
+    removeCartItem,
 }

@@ -5,6 +5,7 @@ var router = express.Router();
 
 router.get('/login', userController.userLogin);
 router.post('/logout', userController.userLogout);
+router.get('/logout', userController.userLogout);
 router.post('/login', userController.loginProcess);
 
 router.get('/registration', userController.pageRegistration);
