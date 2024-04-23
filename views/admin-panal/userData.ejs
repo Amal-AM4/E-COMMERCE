@@ -19,11 +19,12 @@
             table-layout: auto;
             border-collapse: collapse;
             text-align: center;
+            margin-bottom: 20px;
         }
 
-        .table-bx table tr td img {
-            width: 100px;
-            height: auto;
+        .first-row th {
+            text-align: center !important;
+            cursor: pointer;
         }
 
         .table-bx table th,
@@ -57,7 +58,7 @@
         <div class="table-bx">
             <table class="table table-dark table-hover" id="example">
                 <thead>
-                    <tr>
+                    <tr class="first-row">
                         <th>#</th>
                         <th>User Name</th>
                         <th>email</th>
@@ -77,13 +78,13 @@
                     <td><%= count %></td>
                     <td><%= col.name %></td>
                     <td><%= col.email %></td>
-                    <td><%= col.addresses.address_line %></td>
-                    <td><%= col.addresses.city %></td>
-                    <td><%= col.addresses.state %></td>
-                    <td><%= col.addresses.postal_code %></td>
-                    <td><%= col.addresses.country %></td>
-                    <td>Online</td>
-                    <td>delete</td>
+                    <td><%= col.addresses[0].address_line %></td>
+                    <td><%= col.addresses[0].city %></td>
+                    <td><%= col.addresses[0].state %></td>
+                    <td><%= col.addresses[0].postal_code %></td>
+                    <td><%= col.addresses[0].country %></td>
+                    <td style="color: #3BC24D;">Online</td>
+                    <td style="color: #c23b3b;">remove</td>
                 </tr>
                 <% count ++; %>
                 <% }) %>

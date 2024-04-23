@@ -162,9 +162,6 @@ async function viewUserData (req, res) {
             },
         });
 
-
-
-
         res.render('admin-panal/userData', { usersWithAddresses: usersWithAddresses, });
     } catch (error) {
         console.error(error);

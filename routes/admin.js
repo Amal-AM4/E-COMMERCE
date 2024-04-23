@@ -28,7 +28,7 @@ router.post('/productCategory', adminController.insertProductCategory);
 router.get('/addProduct',authenticateAdmin, adminController.addProduct);
 router.post('/addProduct', upload.single('thumb_img'), adminController.addProductItem);
 
-router.get('/userdata', adminController.viewUserData);
+router.get('/userdata', authenticateAdmin, adminController.viewUserData);
 
 
 module.exports = router;
