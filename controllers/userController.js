@@ -169,8 +169,27 @@ function generateUniqueRandomNumber() {
 }
 
 async function dashboard (req, res) {  
+    const userToken = req.cookies.userToken;
     try {
-        res.render('user/dashboard');
+        const user = jwt.verify(userToken, CODE);
+        console.log(`cookie : ${user.userId}`);
+
+        const userProfile = await prisma.user.findUnique({
+            where: {
+                id: user.userId
+            }
+        });
+
+        res.render('user/dashboard', { user: userProfile, });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function cartItems (req, res) {
+    try {
+        // const user = await prisma.user.findUnique();
+        res.render('user/cartItems')
     } catch (error) {
         console.error(error);
     }
@@ -179,6 +198,6 @@ async function dashboard (req, res) {
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
     userLogin, loginProcess, userLogout,
-    dashboard,
+    dashboard, cartItems,
 };
 

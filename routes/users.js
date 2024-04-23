@@ -13,5 +13,7 @@ router.get('/confirmationKey/:id', userController.pageConfirmation);
 router.post('/confirmationKey/:id', userController.userConfirmation);
 
 router.get('/dashboard', authenticateUser, userController.dashboard);
+router.get('/cart-items', authenticateUser, userController.cartItems);
+
 
 module.exports = router;
