@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products | RedStore</title>
+    <title>Cart | MiniKart</title>
     <link rel="stylesheet" href="/stylesheets/home/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -44,7 +44,7 @@
 
     <!-- Cart items details -->
     <div class="small-container cart-page">
-        <table>
+        <table id="table">
             <tr>
                 <th>Product</th>
                 <th>Quantity</th>
@@ -52,7 +52,7 @@
             </tr>
 
             <% cartItems.forEach(col => { %>
-                <tr>
+                <tr class="table-row-one">
                     <td>
                         <div class="cart-info">
                             <img src="<%= col.product.thumb_img.replace('public', '') %>">
@@ -77,21 +77,28 @@
             
         </table>
         <div class="total-price">
-            <table>
+            <table id="table-output">
                 <tr>
                     <td>Subtotal</td>
-                    <td>&#8377;0.00</td>
+                    <td>&#8377;<span id="subtotal"></span>.00</td>
                 </tr>
                 <tr>
-                    <td>Tax</td>
-                    <td>&#8377;0.00</td>
+                    <td>Total items</td>
+                    <td><span id="quantityItem" ></span></td>
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>&#8377;0.00</td>
+                    <td>&#8377;<span id="total-amt"></span>.00</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="/">Check Out</a>
+                    </td>
                 </tr>
             </table>
         </div>
+
+        
     </div>
 
     <!-- Footer -->
@@ -148,6 +155,50 @@
                 MenuItems.style.maxHeight = "0px"
             }
         }
+    </script>
+
+    <script>
+        const table = document.getElementById('table');
+        const subtotal = document.getElementById('subtotal');
+        const totalAmt = document.getElementById('total-amt');
+        const quantityItem = document.getElementById('quantityItem');
+
+        const numberOfrows  = table.rows.length - 1;
+        // let rows = table.rows;
+        let subTotal = 0;
+        let totalItems = 0;
+
+        // loop for calc subtotal in each rows in table
+        for (let startIndex = 1; startIndex <= numberOfrows; startIndex++) {
+            let rows = table.rows[startIndex];
+            let col = rows.cells[2];
+            let lastCol = rows.cells[2].innerHTML;
+
+            let cost = lastCol.replace('₹','');
+
+            cost = parseFloat(cost)
+            subTotal += cost;
+            
+        }
+
+        // loop for calc items count in each rows in table
+        for (let startIndex = 1; startIndex <= numberOfrows; startIndex++) {
+            let rows = table.rows[startIndex];
+            let col = rows.cells[1];
+            let items = rows.cells[1].innerHTML;
+
+            items = parseInt(items)
+            totalItems += items;
+            
+        }
+
+        subtotal.innerHTML = subTotal;
+        totalAmt.innerHTML = subTotal;
+
+        quantityItem.innerHTML = totalItems;
+
+
+
     </script>
 
 
