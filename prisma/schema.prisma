@@ -46,8 +46,9 @@ model product {
   category   productCategory @relation("CategoryList", fields: [categoryId], references: [id])
   categoryId Int
 
-  productImg productGallery[] @relation("productImg")
-  productItem cartItem[] @relation("productItem")
+  productImg  productGallery[] @relation("productImg")
+  productItem cartItem[]       @relation("productItem")
+  payment     payment[]        @relation("paymentproductID")
 
   @@map(name: "product")
 }
@@ -75,7 +76,8 @@ model user {
   modified_at      DateTime @updatedAt
 
   addresses userAddress[] @relation("userConn")
-  cart cartItem[] @relation("userid")
+  cart      cartItem[]    @relation("userid")
+  payment   payment[]     @relation("paymentuserID")
 
   @@map(name: "user")
 }
@@ -93,14 +95,29 @@ model userAddress {
 }
 
 model cartItem {
-  id Int @id @default(autoincrement())
-  quantity Int
-  created_at       DateTime @default(now())
-  modified_at      DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  quantity    Int
+  created_at  DateTime @default(now())
+  modified_at DateTime @updatedAt
 
-  user user @relation("userid", fields: [user_id], references: [id])
+  user    user @relation("userid", fields: [user_id], references: [id])
   user_id Int
 
-  product product @relation("productItem", fields: [product_id], references: [id])
+  product    product @relation("productItem", fields: [product_id], references: [id])
   product_id Int
+}
+
+model payment {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  productId       Int
+  quantity        Int
+  amount          Float
+  currency        String
+  paymentIntentId String   @unique
+  paymentDate     DateTime @default(now())
+
+  // Add relations if needed
+  user    user    @relation("paymentuserID", fields: [userId], references: [id])
+  product product @relation("paymentproductID", fields: [productId], references: [id])
 }

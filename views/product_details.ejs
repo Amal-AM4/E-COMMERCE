@@ -26,6 +26,7 @@
         .btn-cart {
             border: none;
             font-size: 18px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -84,7 +85,8 @@
                 <% if (active === true) { %>
                     <button id="btn-cart" class="btn btn-cart">Add to Cart</button>
                 <% } %>
-                <a href="" class="btn">Order Now</a>
+
+                <button id="orderNowBtn" class="btn btn-cart">Order Now</button>
 
                 <h3>Product Details <i class="fa fa-indent"></i></h3>
                 <br>
@@ -95,6 +97,10 @@
             </div>
         </div>
     </div>
+
+    <!-- Add this to your HTML file -->
+    <div id="paymentData" style="display: none;" data-userid="<%= userTbl.id %>" data-productid="<%= productData.id %>" data-amount="<%= productData.discount_price %>" data-currency="inr"></div>
+
     <!-- title -->
     <div class="small-container">
         <div class="row row-2">
@@ -216,6 +222,9 @@
         });
 
     </script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+
 </body>
 
 </html>

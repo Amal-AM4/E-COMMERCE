@@ -12,4 +12,6 @@ router.get('/cart/:uid/:pid/:qty', homeController.pageCart);
 router.get('/product_details/:pid', homeController.pageProductDetails);
 router.get('/remove-cart/:id', authenticateUser, homeController.removeCartItem);
 
+
+
 module.exports = router;

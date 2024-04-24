@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const jwt = require('jsonwebtoken');
+const stripe = require('../config/stripeConfig');
 const prisma = new PrismaClient();
 
 require('dotenv').config();
@@ -273,6 +274,8 @@ async function pageCart (req, res){
         }
     }
 }
+
+
 
 module.exports = {
     homePage, pageProduct, pageProductDetails, pageCart, pageViewCart,
