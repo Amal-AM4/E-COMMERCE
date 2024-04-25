@@ -200,6 +200,25 @@
         }
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttonorderNowBtn = document.getElementById('orderNowBtn');
+
+            let checkBool = `<%= active %>`;
+            console.log(checkBool);
+
+            buttonorderNowBtn.addEventListener('click', async () => {
+                if (checkBool === 'false') {
+                    window.location.href = '/users/login';
+                }
+                else {
+                    alert('true')
+                }
+            });
+
+        });
+    </script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -222,6 +241,8 @@
         });
 
     </script>
+
+    
 
     <script src="https://js.stripe.com/v3/"></script>
 
