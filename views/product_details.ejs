@@ -225,7 +225,9 @@
                             qtyValue = 1;
                         }
 
-                        window.location.href = `/payment-gateway/<%= userTbl.id %>/<%= productData.id %>/${qtyValue}`;
+                        const url = `/payment-gateway/<%= userTbl.id %>/<%= productData.id %>/${qtyValue}`;
+                        // open the url in a new tab
+                        window.open(url, '_blank');
                     }
                 }
             });

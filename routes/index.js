@@ -13,6 +13,6 @@ router.get('/cart/:uid/:pid/:qty', homeController.pageCart);
 router.get('/product_details/:pid', homeController.pageProductDetails);
 router.get('/remove-cart/:id', authenticateUser, homeController.removeCartItem);
 
-router.get('/payment-gateway/:uid/:pid/:qty', viewPaymentGateway)
+router.get('/payment-gateway/:uid/:pid/:qty', authenticateUser, viewPaymentGateway)
 
 module.exports = router;
