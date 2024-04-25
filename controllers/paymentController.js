@@ -41,11 +41,9 @@ async function viewPaymentGateway (req, res) {
     }
 }
 
-async function payment (req, res) {
+async function payment(req, res) {
     // const { tokenId, cardholderName, quantity, amount, userId, productId  } = req.body;
-    const { paymentMethodId, cardholderName, quantity, amount, userId, productId  } = req.body;
-    console.log('test payment post method');
-    console.log(`${paymentMethodId}, ${cardholderName}, ${quantity}, ${amount}, ${userId}, ${productId},`);
+    const { paymentMethodId, cardholderName, quantity, amount, userId, productId } = req.body;
 
     try {
         // Create a payment intent using the Stripe SDK
@@ -71,14 +69,17 @@ async function payment (req, res) {
             },
         });
 
+        // Send a JSON response indicating success
+        res.status(200).json({ message: 'Payment processed successfully' });
+
+        
+
     } catch (error) {
         console.error(error);
+        // Send a JSON response indicating failure
+        res.status(500).json({ error: 'An error occurred while processing the payment' });
     }
-
 }
 
-async function paymentSuccess (req, res) {  
-    res.render('payment-success');
-}
 
-module.exports = { viewPaymentGateway, payment, paymentSuccess };
+module.exports = { viewPaymentGateway, payment, };
