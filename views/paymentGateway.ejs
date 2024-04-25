@@ -39,16 +39,14 @@
             <div class="col-md-6">
                 <img src="/images/Stripe-logo.png" class="stripe-logo" alt="">
                 <form id="paymentForm">
-                    <label for="cardholderName">Cardholder Name:</label>
-                    <input type="text" id="cardholderName" name="cardholderName" class="form-control mb-2" required>
-                    <label for="cardNumber">Card Number:</label>
-                    <input type="text" id="cardNumber" name="cardNumber" class="form-control mb-2" required>
-                    <label for="cardExp">Expiration Date:</label>
-                    <input type="text" id="cardExp" name="cardExp" class="form-control mb-2" placeholder="MM/YY" required>
-                    <label for="cardCVV">CVV:</label>
-                    <input type="text" id="cardCVV" name="cardCVV" class="form-control mb-2" required>
+                    
+                    <input type="text" id="cardholderName" name="cardholderName" class="form-control mb-2" placeholder="Cardholder Name" required>
+
+                    <div id="card-element" class="form-control mb-4"></div>
+
 
                     <!-- Include product ID and quantity in hidden fields -->
+                    <input type="hidden" id="amount" name="amount" value="<%= productData.dicount_price * qty %>">
                     <input type="hidden" id="userId" name="userId" value="<%= userTbl.id %>">
                     <input type="hidden" id="productId" name="productId" value="<%= productData.id %>">
                     <input type="hidden" id="quantity" name="quantity" value="<%= qty %>">
@@ -61,7 +59,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const stripe = Stripe('your_stripe_publishable_key');
+            const stripe = Stripe(`<%= STRIPE_PUBLIC_KEY %>`);
             const elements = stripe.elements();
             const cardElement = elements.create('card');
             cardElement.mount('#card-element');
@@ -72,12 +70,17 @@
             paymentForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
+                console.log(stripe);
+
                 const { token, error } = await stripe.createToken(cardElement);
 
                 if (error) {
                     console.error(error.message);
                     paymentMessage.innerText = error.message;
                 } else {
+                    // Token contains the card details securely
+                    console.log(token);
+
                     // Send token to your server for processing
                     fetch('/process-payment', {
                         method: 'POST',
@@ -85,8 +88,7 @@
                         body: JSON.stringify({
                             tokenId: token.id,
                             cardholderName: document.getElementById('cardholderName').value,
-                            cardExp: document.getElementById('cardExp').value,
-                            cardCVV: document.getElementById('cardCVV').value,
+                            amount: document.getElementById('amount').value,
                             userId: document.getElementById('userId').value,
                             productId: document.getElementById('productId').value,
                             quantity: document.getElementById('quantity').value
