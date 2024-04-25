@@ -50,7 +50,7 @@ async function payment (req, res) {
     try {
         // Create a payment intent using the Stripe SDK
         const paymentIntent = await stripe.paymentIntents.create({
-            amount: parseInt(amount), // Calculate the total amount based on quantity
+            amount: parseInt(amount * 100), // Calculate the total amount based on quantity
             currency: 'inr', // Change to your desired currency
             payment_method: paymentMethodId,
             confirm: true,
@@ -70,8 +70,6 @@ async function payment (req, res) {
                 paymentDate: new Date(),
             },
         });
-
-        
 
     } catch (error) {
         console.error(error);
