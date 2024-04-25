@@ -41,44 +41,6 @@ async function viewPaymentGateway (req, res) {
     }
 }
 
-// async function payment (req, res) { 
-
-//     const { paymentMethodId, cardholderName, cardNumber, cardExp, cardCVV, quantity, amount, userId, productId  } = req.body;
-
-//     try {
-//         // Create a payment intent using the Stripe SDK
-//         const paymentIntent = await stripe.paymentIntents.create({
-//         amount: parseInt(amount), // Calculate the total amount based on quantity
-//         currency: 'inr', // Change to your desired currency
-//         payment_method: paymentMethodId,
-//         confirm: true,
-//         });
-
-//         // Store payment details in the database using Prisma
-//         const payment = await prisma.payment.create({
-//         data: {
-//             userId: parseInt(userId), // Assuming user ID is available in the request
-//             productId: parseInt(productId), // Assuming product ID is available in the request
-//             cardHolderName: cardholderName,
-//             cardNumber: cardNumber,
-//             cardExp: cardExp,
-//             cardCVV: cardCVV,
-//             quantity: parseInt(quantity),
-//             amount: parseInt(amount), // Store the total amount in the database
-//             currency: 'inr', // Change to your desired currency
-//             paymentIntentId: paymentIntent.id,
-//             paymentDate: new Date(),
-//         },
-//         });
-
-//         res.json({ message: 'Payment successful', payment });
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Failed to process payment' });
-//     }
-
-// }
-
 async function payment (req, res) {
     // const { tokenId, cardholderName, quantity, amount, userId, productId  } = req.body;
     const { paymentMethodId, cardholderName, quantity, amount, userId, productId  } = req.body;
@@ -95,8 +57,6 @@ async function payment (req, res) {
             return_url: 'http://localhost:3000/payment-success',
         });
 
-        console.log('return url');
-
         // Store payment details in the database using Prisma
         const payment = await prisma.payment.create({
             data: {
@@ -111,9 +71,7 @@ async function payment (req, res) {
             },
         });
 
-        console.log('return url 1');
-        res.redirect('/payment-success');
-        console.log('return url 2');
+        
 
     } catch (error) {
         console.error(error);
