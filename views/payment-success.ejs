@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <!-- Include Bootstrap CSS or your preferred styling -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="paymentSuccessMessage" class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Payment Successful!</h4>
+            <p>Your payment was successfully processed.</p>
+            <hr>
+            <p class="mb-0">Thank you for your purchase.</p>
+        </div>
+    </div>
+
+    <!-- Include custom JavaScript for redirecting after a delay -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                window.location.href = '/'; // Redirect to the home page after 5 seconds
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    </script>
+</body>
+</html>

@@ -80,9 +80,49 @@ async function viewPaymentGateway (req, res) {
 // }
 
 async function payment (req, res) {
-    const { tokenId, cardholderName, quantity, amount, userId, productId  } = req.body;
+    // const { tokenId, cardholderName, quantity, amount, userId, productId  } = req.body;
+    const { paymentMethodId, cardholderName, quantity, amount, userId, productId  } = req.body;
     console.log('test payment post method');
-    console.log(`${tokenId}, ${cardholderName}, ${quantity}, ${amount}, ${userId}, ${productId},`);
+    console.log(`${paymentMethodId}, ${cardholderName}, ${quantity}, ${amount}, ${userId}, ${productId},`);
+
+    try {
+        // Create a payment intent using the Stripe SDK
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: parseInt(amount), // Calculate the total amount based on quantity
+            currency: 'inr', // Change to your desired currency
+            payment_method: paymentMethodId,
+            confirm: true,
+            return_url: 'http://localhost:3000/payment-success',
+        });
+
+        console.log('return url');
+
+        // Store payment details in the database using Prisma
+        const payment = await prisma.payment.create({
+            data: {
+                userId: parseInt(userId), // Assuming user ID is available in the request
+                productId: parseInt(productId), // Assuming product ID is available in the request
+                cardHolderName: cardholderName,
+                quantity: parseInt(quantity),
+                amount: parseInt(amount), // Store the total amount in the database
+                currency: 'inr', // Change to your desired currency
+                paymentIntentId: paymentMethodId,
+                paymentDate: new Date(),
+            },
+        });
+
+        console.log('return url 1');
+        res.redirect('/payment-success');
+        console.log('return url 2');
+
+    } catch (error) {
+        console.error(error);
+    }
+
 }
 
-module.exports = {viewPaymentGateway, payment};
+async function paymentSuccess (req, res) {  
+    res.render('payment-success');
+}
+
+module.exports = { viewPaymentGateway, payment, paymentSuccess };

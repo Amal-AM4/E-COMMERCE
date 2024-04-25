@@ -112,9 +112,9 @@ model payment {
   userId          Int
   productId       Int
   cardHolderName  String
-  cardNumber      String
-  cardExp         String
-  cardCVV         String
+  // cardNumber      String
+  // cardExp         String
+  // cardCVV         String
   quantity        Int
   amount          Float
   currency        String

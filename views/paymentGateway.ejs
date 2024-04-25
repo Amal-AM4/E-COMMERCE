@@ -57,9 +57,11 @@
         </div>
     </div>
 
-    <script>
+
+    <!-- to generate stripe token -->
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const stripe = Stripe(`<%= STRIPE_PUBLIC_KEY %>`);
+            const stripe = Stripe(`STRIPE_PUBLIC_KEY`);
             const elements = stripe.elements();
             const cardElement = elements.create('card');
             cardElement.mount('#card-element');
@@ -103,6 +105,68 @@
                 }
             });
         });
-    </script>
+    </script> -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const stripe = Stripe('<%= STRIPE_PUBLIC_KEY %>');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        const paymentForm = document.getElementById('paymentForm');
+        const paymentMessage = document.getElementById('paymentMessage');
+
+        paymentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect additional data from the form
+            const cardholderName = document.getElementById('cardholderName').value;
+            const amount = document.getElementById('amount').value;
+            const userId = document.getElementById('userId').value;
+            const productId = document.getElementById('productId').value;
+            const quantity = document.getElementById('quantity').value;
+
+            // Create a Payment Method using Stripe Elements
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: cardholderName,
+                },
+            });
+
+            if (error) {
+                console.error(error.message);
+                paymentMessage.innerText = error.message;
+            } else {
+                // Payment Method ID is obtained from the created Payment Method
+                const paymentMethodId = paymentMethod.id;
+                console.log('Payment Method ID:', paymentMethodId);
+
+                // Send Payment Method ID and other data to your server for processing
+                fetch('/process-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        paymentMethodId: paymentMethodId,
+                        cardholderName: cardholderName,
+                        amount: amount,
+                        userId: userId,
+                        productId: productId,
+                        quantity: quantity,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    paymentMessage.innerText = data.message;
+                })
+                .catch(error => console.error(error));
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
