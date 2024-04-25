@@ -212,7 +212,21 @@
                     window.location.href = '/users/login';
                 }
                 else {
-                    alert('true')
+                    const qty = document.getElementById('qtyBox');
+
+                    if (buttonorderNowBtn != null) {
+                        buttonorderNowBtn.addEventListener('click', passDataToCart);
+                    }
+
+                    function passDataToCart() {
+                        let qtyValue = parseInt(qty.value);
+
+                        if (qtyValue === 0 || qtyValue < 0) {
+                            qtyValue = 1;
+                        }
+
+                        window.location.href = `/payment-gateway/<%= userTbl.id %>/<%= productData.id %>/${qtyValue}`;
+                    }
                 }
             });
 

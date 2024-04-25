@@ -111,6 +111,10 @@ model payment {
   id              Int      @id @default(autoincrement())
   userId          Int
   productId       Int
+  cardHolderName  String
+  cardNumber      String
+  cardExp         String
+  cardCVV         String
   quantity        Int
   amount          Float
   currency        String
