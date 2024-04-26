@@ -66,6 +66,7 @@ async function payment(req, res) {
                 currency: 'inr', // Change to your desired currency
                 paymentIntentId: paymentMethodId,
                 paymentDate: new Date(),
+                status: true,
             },
         });
 

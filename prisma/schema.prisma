@@ -120,6 +120,7 @@ model payment {
   currency        String
   paymentIntentId String   @unique
   paymentDate     DateTime @default(now())
+  status          Boolean
 
   // Add relations if needed
   user    user    @relation("paymentuserID", fields: [userId], references: [id])
