@@ -22,6 +22,51 @@
             height: auto;
             margin-bottom: 10px;
         }
+
+        .product-details{
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.09);
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-radius: 12px;
+            width: 460px;
+        }
+
+        .product-details .price-box {
+            background-color: #007bff;
+            color: #f8f9fa;
+            padding: 10px 14px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+        .cancell-btn {
+            display: block;
+            background-color: #dc3545;
+            color: #f8f9fa;
+            /* padding: 10px; */
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 22px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 0;
+            right: 120px;
+        }
+        .cancell-btn:hover {
+            transition: all 0.2s ease;
+            background-color: #b32c39;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -29,13 +74,14 @@
         <h1 class="mt-4">Payment Gateway</h1>
         <div class="row mt-4">
             
-            <div class="col-md-6">
+            <div class="col-md-6 product-box">
                 <div class="product-details">
                     <img src="<%= productData.thumb_img.replace('public', '') %>" class="img-fluid" alt="Product Image">
                     <h2 class="prt-title"><%= productData.name %></h2>
                     <p style="font-size: 18px;">Quantity: <%= qty %></p>
-                    <p style="font-size: 18px; font-weight: bold;">Price: &#8377;<%= productData.dicount_price * qty %>.00</p>
+                    <p style="font-size: 18px; font-weight: bold;" class="price-box">Price: &#8377;<%= productData.dicount_price * qty %>.00</p>
                 </div>
+                <span class="cancell-btn" id="cancell-btn">x</span>
             </div>
 
             <div class="col-md-6">
@@ -58,6 +104,15 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        const cancellBtn = document.getElementById('cancell-btn');
+
+        cancellBtn.addEventListener('click', () => {
+            window.close();
+        });
+    </script>
 
 
 
