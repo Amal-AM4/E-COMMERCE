@@ -16,4 +16,6 @@ router.get('/remove-cart/:id', authenticateUser, homeController.removeCartItem);
 router.get('/payment-gateway/:uid/:pid/:qty', authenticateUser, paymentController.viewPaymentGateway);
 router.post('/process-payment', paymentController.payment);
 
+router.get('/update-quanty/:pid/:qty', homeController.updateQty);
+
 module.exports = router;

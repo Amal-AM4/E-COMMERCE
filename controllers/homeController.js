@@ -275,9 +275,28 @@ async function pageCart (req, res){
     }
 }
 
+async function updateQty (req, res) {  
+    try {
+        const pid = parseInt(req.params.pid);
+        const qty = parseInt(req.params.qty);
+        const updateQty = await prisma.product.update({
+            where: { id: pid },
+            data: {
+                quantity: {
+                    decrement: qty,
+                }
+            }
+        });
+
+        res.redirect('/products?skip=0&take=8');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 
 module.exports = {
     homePage, pageProduct, pageProductDetails, pageCart, pageViewCart,
-    removeCartItem,
+    removeCartItem, updateQty,
 }

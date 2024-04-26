@@ -117,10 +117,10 @@
                     console.log(data);
                     paymentMessage.innerText = data.message;
                     
-                    // Redirect to the homepage after 3 seconds
+                    // Redirect to the homepage after 3 seconds 
                     setTimeout(() => {
-                        window.location.href = '/';
-                    }, 3000);
+                        window.location.href = `/update-quanty/<%= productData.id %>/<%= qty %>`;
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
