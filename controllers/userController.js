@@ -205,9 +205,28 @@ async function cartItems (req, res) {
     }
 }
 
+async function orderList (req, res) {
+    const userToken = req.cookies.userToken;
+    try {
+        const user = jwt.verify(userToken, CODE);
+        const payment = await prisma.payment.findMany({
+            where: {
+                userId: user.userId
+            },
+            include: {
+                product: true
+            }
+        });
+
+        res.render('user/orderList', { payment: payment });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
     userLogin, loginProcess, userLogout,
-    dashboard, cartItems,
+    dashboard, cartItems, orderList,
 };
 

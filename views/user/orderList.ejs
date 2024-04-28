@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart | User</title>
+    <title>Dashboard | User</title>
     <link rel="stylesheet" href="/stylesheets/user/dashboard.css">
     <style>
         table {
@@ -20,27 +20,29 @@
 
     <div class="main-content">
         <!-- Your data display content goes here -->
-        <h1>Cart Items</h1>
+        <h1>Order List</h1>
 
-        <table style="text-align: center;">
+        <table>
             <tr>
                 <th>#</th>
+                <th>Card Holder Name</th>
                 <th>Product</th>
-                <th>Quantity</th>
-                <th>Price</th>
+                <th>Qty</th>
+                <th>Amount</th>
+                <th>Status</th>
             </tr>
             <% let count = 1; %>
-            <% cartItems.forEach(col => { %>
-                <tr>
-                    <td><%= count %></td>
-                    <td><%= col.product.name %></td>
-                    <td><%= col.quantity %></td>
-                    <td>&#8377;<%= col.product.dicount_price * col.quantity %>.00</td>
-                </tr>
+            <% payment.forEach(col => { %>
+                <td><%= count %></td>
+                <td><%= col.cardHolderName %></td>
+                <td><%= col.product.name %></td>
+                <td><%= col.quantity %></td>
+                <td>&#8377;<%= col.amount %></td>
+                <td style="color: rgb(94, 199, 94);">Successful</td>
             <% }) %>
-            <% count ++; %>
         </table>
-        
+
+
     </div>
 
     <script src="/javascripts/theme.js"></script>
