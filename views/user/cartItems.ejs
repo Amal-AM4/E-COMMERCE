@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | User</title>
+    <title>Cart | User</title>
     <link rel="stylesheet" href="/stylesheets/user/dashboard.css">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table tr, th, td {
+            padding: 10px 14px;
+            border: 1px solid #ffffff;
+        }
+    </style>
 </head>
 <body>
     <% include sidebar.ejs %>
@@ -12,6 +21,24 @@
     <div class="main-content">
         <!-- Your data display content goes here -->
         <h1>Cart Items</h1>
+
+        <table style="text-align: center;">
+            <tr>
+                <th>#</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            <% let count = 1; %>
+            <% cartItems.forEach(col => { %>
+                <tr>
+                    <td><%= count %></td>
+                    <td><%= col.product.name %></td>
+                    <td><%= col.quantity %></td>
+                    <td>&#8377;<%= col.product.dicount_price * col.quantity %>.00</td>
+                </tr>
+            <% }) %>
+        </table>
         
     </div>
 

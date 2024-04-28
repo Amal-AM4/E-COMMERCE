@@ -187,9 +187,19 @@ async function dashboard (req, res) {
 }
 
 async function cartItems (req, res) {
+    const userToken = req.cookies.userToken;
     try {
-        // const user = await prisma.user.findUnique();
-        res.render('user/cartItems')
+        const user = jwt.verify(userToken, CODE);
+        const cartItems = await prisma.cartItem.findMany({
+            where: {
+                user_id: user.userId
+            },
+            include: {
+                product: true
+            }
+        });
+
+        res.render('user/cartItems', { cartItems: cartItems });
     } catch (error) {
         console.error(error);
     }
