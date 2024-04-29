@@ -79,3 +79,32 @@ button {
     text-decoration: none;
     color: rgb(75, 127, 240);
 }
+
+.info-stat {
+    display: flex;
+}
+
+.info-stat .cart,
+.info-stat .payment,
+.info-stat .order {
+    background-color: #fff;
+    color: #121212;
+    padding: 10px;
+    width: 200px;
+    height: 200px;
+    margin-right: 10px;
+    font-size: 80px;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.info-stat .cart p,
+.info-stat .payment p,
+.info-stat .order p {
+    margin: 0;
+}
+
+.info-stat .payment p {
+    font-size: 32px;
+}

@@ -180,7 +180,34 @@ async function dashboard (req, res) {
             }
         });
 
-        res.render('user/dashboard', { user: userProfile, });
+        const cart = await prisma.cartItem.count({
+            where: {
+                user_id: user.userId
+            }
+        });
+
+        const order = await prisma.payment.count({
+            where: {
+                userId: user.userId
+            }
+        });
+
+        const totalPayment = await prisma.payment.findMany({
+            where: {
+                userId: user.userId
+            },
+            include: {
+                product: true
+            }
+        });
+
+        let sum = 0;
+            totalPayment.forEach((payment) => {
+            sum += parseInt(payment.amount); 
+        });
+        console.log(sum);
+
+        res.render('user/dashboard', { user: userProfile, cart: cart, order: order, totalAmt: sum,});
     } catch (error) {
         console.error(error);
     }

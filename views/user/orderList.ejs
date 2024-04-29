@@ -33,12 +33,15 @@
             </tr>
             <% let count = 1; %>
             <% payment.forEach(col => { %>
-                <td><%= count %></td>
-                <td><%= col.cardHolderName %></td>
-                <td><%= col.product.name %></td>
-                <td><%= col.quantity %></td>
-                <td>&#8377;<%= col.amount %></td>
-                <td style="color: rgb(94, 199, 94);">Successful</td>
+                <tr>
+                    <td><%= count %></td>
+                    <td><%= col.cardHolderName %></td>
+                    <td><%= col.product.name %></td>
+                    <td><%= col.quantity %></td>
+                    <td>&#8377;<%= col.amount %></td>
+                    <td style="color: rgb(94, 199, 94);">Successful</td>
+                </tr>
+                <% count ++; %>
             <% }) %>
         </table>
 
