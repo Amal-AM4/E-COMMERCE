@@ -17,6 +17,7 @@ router.get('/dashboard', authenticateUser, userController.dashboard);
 router.get('/cart-items', authenticateUser, userController.cartItems);
 router.get('/order-list', authenticateUser, userController.orderList);
 router.get('/address', authenticateUser, userController.address);
+router.post('/address', userController.updateAddress);
 
 
 module.exports = router;

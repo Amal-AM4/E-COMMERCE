@@ -65,3 +65,17 @@ button {
     margin-left: 300px;
     padding: 20px;
 }
+
+.waring {
+    background-color: #fff;
+    color: #121212;
+    width: 60%;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.waring a:link,
+.waring a:visited {
+    text-decoration: none;
+    color: rgb(75, 127, 240);
+}

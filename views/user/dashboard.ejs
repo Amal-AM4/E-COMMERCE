@@ -11,7 +11,13 @@
 
     <div class="main-content">
         <!-- Your data display content goes here -->
-        <h1>Welcome, Mr. <%= user.name %></h1>
+        <h1>Welcome, <%= user.name %></h1>
+        <% if (user.isAddressUpdated === false) { %>
+            <div class="waring">
+                Please update your home address for shipping.
+                <a href="/users/address">Click here.</a>
+            </div>
+        <% } %>
         <p>This is where your data will be displayed.</p>
     </div>
 

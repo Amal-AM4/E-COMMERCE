@@ -243,9 +243,37 @@ async function address (req, res) {
     }
 }
 
+async function updateAddress (req, res) { 
+    const userToken = req.cookies.userToken;
+    try {
+        const user = jwt.verify(userToken, CODE);
+        const { house_name, place, state, pin_code, country } = req.body;
+        const updateUserAddress = await prisma.userAddress.create({
+            data: {
+                address_line: house_name,
+                city: place,
+                state: state,
+                postal_code: parseInt(pin_code),
+                country: country,
+                userId: user.userId
+            }
+        });
+        const updateAddress = await prisma.user.update({
+            where: { id: user.userId },
+            data: {
+                isAddressUpdated: true
+            }
+        });
+
+        res.redirect('/users/dashboard');
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
     userLogin, loginProcess, userLogout,
-    dashboard, cartItems, orderList, address,
+    dashboard, cartItems, orderList, address, updateAddress,
 };
 
