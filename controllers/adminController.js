@@ -168,11 +168,26 @@ async function viewUserData (req, res) {
     }
 }
 
+async function ordersList (req, res) {  
+    try {
+        const allorder = await prisma.payment.findMany({
+            include: {
+                user: true,
+                product: true
+            }
+        });
+
+        res.render('admin-panal/ordersList', { allorder: allorder });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 module.exports = {
     loginPage, adminLogin, adminLogout, 
     dashboard, 
     productCategoryEjs, insertProductCategory,
     addProduct, addProductItem,
-    viewUserData,
+    viewUserData, ordersList,
 }

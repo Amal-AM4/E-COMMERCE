@@ -65,3 +65,13 @@ button {
     margin-left: 300px;
     padding: 20px;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+table tr, th, td {
+    text-align: center;
+    padding: 10px 14px;
+    border: 1px solid #fff;
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/stylesheets/admin-panal/dashboard.css">
+</head>
+<body>
+    <% include sidebar.ejs %>
+
+    <div class="main-content">
+        <!-- Your data display content goes here -->
+        <h1>Payment Details</h1>
+
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>PaymentIntentId</th>
+            </tr>
+            <% let count = 1 %>
+            <% allorder.forEach(col => { %>
+                <tr>
+                    <td><%= count %></td>
+                    <td><%= col.user.name %></td>
+                    <td><%= col.product.name %></td>
+                    <td>&#8377;<%= col.amount %>.00</td>
+                    <td style="color: rgba(0, 255, 255, 0.815);"><%= col.paymentIntentId %></td>
+                </tr>
+                <% count ++; %>
+            <% }) %>
+        </table>
+    </div>
+
+    <script src="/javascripts/theme.js"></script>
+</body>
+</html>

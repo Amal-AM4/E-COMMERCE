@@ -29,6 +29,7 @@ router.get('/addProduct',authenticateAdmin, adminController.addProduct);
 router.post('/addProduct', upload.single('thumb_img'), adminController.addProductItem);
 
 router.get('/userdata', authenticateAdmin, adminController.viewUserData);
+router.get('/orders', authenticateAdmin, adminController.ordersList);
 
 
 module.exports = router;
