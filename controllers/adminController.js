@@ -61,7 +61,16 @@ async function dashboard (req, res, next) {
         where: { id:pk }
     });
 
-    res.render('admin-panal/dashboard', { data: adminUser });
+    const customer = await prisma.user.count();
+
+    const totalPayment = await prisma.payment.findMany();
+
+    let sum = 0;
+    totalPayment.forEach((payment) => {
+        sum += parseInt(payment.amount); 
+    });
+
+    res.render('admin-panal/dashboard', { data: adminUser, customer: customer, sum: sum, });
 }
 
 async function productCategoryEjs (req, res) {
@@ -177,7 +186,9 @@ async function ordersList (req, res) {
             }
         });
 
-        res.render('admin-panal/ordersList', { allorder: allorder });
+        
+
+        res.render('admin-panal/ordersList', { allorder: allorder,  });
     } catch (error) {
         console.error(error);
     }

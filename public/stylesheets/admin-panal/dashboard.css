@@ -75,3 +75,25 @@ table tr, th, td {
     padding: 10px 14px;
     border: 1px solid #fff;
 }
+
+.box {
+    display: flex;
+}
+
+.box .customer, 
+.box .amount {
+    display: flex; /* Add this line */
+    flex-direction: column;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+    background-color: #fff;
+    color: #121212;
+    padding: 10px;
+    margin-right: 10px;
+    width: 200px;
+    height: 200px;
+    text-align: center; /* Center the text horizontally */
+    font-size: 42px;
+    border-radius: 10px;
+    cursor: pointer;
+}

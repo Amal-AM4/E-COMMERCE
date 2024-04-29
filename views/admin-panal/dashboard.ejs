@@ -13,6 +13,17 @@
     <div class="main-content">
         <!-- Your data display content goes here -->
         <h1>Welcome, Mr. <%= data.first_name %> <%= data.last_name %></h1>
+
+        <div class="box">
+            <div class="customer">
+                <i class="bi bi-people"></i>
+                <p><%= customer %></p>
+            </div>
+            <div class="amount">
+                <i class="bi bi-wallet"></i>
+                <p>&#8377;<%= sum %>.00</p>
+            </div>
+        </div>
         
     </div>
 
