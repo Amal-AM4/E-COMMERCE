@@ -224,9 +224,28 @@ async function orderList (req, res) {
     }
 }
 
+async function address (req, res) {
+    const userToken = req.cookies.userToken;
+    try {
+        const user = jwt.verify(userToken, CODE);
+        const payment = await prisma.payment.findMany({
+            where: {
+                userId: user.userId
+            },
+            include: {
+                product: true
+            }
+        });
+
+        res.render('user/address', {  });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     pageRegistration, userRegistration, userConfirmation, pageConfirmation,
     userLogin, loginProcess, userLogout,
-    dashboard, cartItems, orderList,
+    dashboard, cartItems, orderList, address,
 };
 
