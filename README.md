@@ -18,7 +18,10 @@ MiniKart is a lightweight ecommerce web application built with modern Node.js te
 
 ## 📸 Project Screenshot
 
-![MiniKart Screenshot](./screenshots/minikart-screenshot.png)  
+<img src="screenshot/localhost_3000_ (2).png" />
+<img src="screenshot/localhost_3000_products_skip=0&take=8.png" />
+<img src="screenshot/localhost_3000_admin_orders.png" />
+<img src="screenshot/localhost_3000_admin_product_productList.png" />
 > 📎 *Make sure to place your screenshot in a `screenshots/` folder inside the project directory.*
 
 ---
